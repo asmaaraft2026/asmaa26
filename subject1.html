@@ -208,42 +208,44 @@
         
 </head>
 <body dir= "rtl">
+<canvas id="renderCanvas" style="width:100%; height:100%;"></canvas>
 
-<!-- Programming object 7 -->
-	<!-- إنشاء لوحة الرسم -->
-		<canvas id="renderCanvas" style="width:100%; height:100%;"></canvas>
+<!-- لوحة التحكم -->
+<div id="ui" >
+    <h3>لوحة التحكم</h3>
+    <p>أنقر على أي أداة أو مادة لتحديدها</p>
 
-
-<!-- Programming object 8 -->
-	<!-- إنشاء لوحة التحكم html -->
-		<div id="ui" >
-			<h3>المساعد الذكي</h3>
-			<p>أنقر على أي أداة أو مادة لتحديدها</p>
-
-			<button onclick="move('up')">⬆️ للأعلى</button>
-			<button onclick="move('down')">⬇️ للأسفل</button><br>
+    <button onclick="move('up')">⬆️ للأعلى</button>
+    <button onclick="move('down')">⬇️ للأسفل</button><br>
         
-			<button onclick="move('right')">➡️ لليمين</button>
-			<button onclick="move('left')">⬅️ لليسار</button><br>
+    <button onclick="move('right')">➡️ لليمين</button>
+   	<button onclick="move('left')">⬅️ لليسار</button><br>
   
-			<button onclick="move('forward')">🔼 للأمام</button>
-			<button onclick="move('backward')">🔽 للخلف</button><br><br>
+    <button onclick="move('forward')">🔼 للأمام</button>
+    <button onclick="move('backward')">🔽 للخلف</button><br><br>
 
-			<button onclick="rotate('right')">↻ تدوير يمين</button>
-			<button onclick="rotate('left')">↺ تدوير يسار</button><br>
+    <button onclick="rotate('right')">↻ تدوير يمين</button>
+    <button onclick="rotate('left')">↺ تدوير يسار</button><br>
     
-			<button onclick="scale('up')">➕ تكبير</button>
-			<button onclick="scale('down')">➖ تصغير</button><br>
+
+    <button onclick="scale('up')">➕ تكبير</button>
+    <button onclick="scale('down')">➖ تصغير</button><br>
       
-			<button onclick="scale('')">تجربة جديدة</button><br>
-			<button onclick="scale('')">الطاولة الأولى</button><br>
-            <button id="toggleBtn111">إظهار التجربة الأولى</button>
-			<button id="toggleBtn112">اظهار التجربة الثانية</button>
+     <button onclick="scale('')">تجربة جديدة</button><br>
+        <button onclick="scale('')">الطاولة الأولى</button><br>
+        <!-- 
+         <button id="showBtn">إظهار الكائن</button>
+    <button id="toggleBtn">إظهار/إخفاء</button><br>
+  
+         <button onclick="Interaction11141('t')">اظهار كائن مؤقت</button>
+        <button id="showBtn2">إظهار النموذج</button>
+  -->
+        <button id="toggleBtn111">إظهار التجربة الأولى</button>
+        <button id="toggleBtn112">اظهار التجربة الثانية</button>
         
-		</div>
+</div>
 
-
-     
+        
         <div id="guia" >
 		  <div class="box">
 		 <div id="gui1" ></div>
@@ -259,10 +261,10 @@
 		</div>
 		
 		 </div>
-	
+        
         
 <script>
-     
+        
         //متغير عام للتحكم فى الكاميرا
 			var x = 0;
 			var z = -99;
@@ -581,7 +583,10 @@
                 });
 
             
-     
+
+            /////
+
+      
             ////////
       // ✋ اليد الافتراضية
    
