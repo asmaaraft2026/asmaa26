@@ -232,7 +232,7 @@
 <!-- Programming object 8 -->
 	<!-- إنشاء لوحة التحكم html -->
 		<div id="ui" >
-			<h3>المساعد الذكي3</h3>
+			<h3>المساعد الذكي 4</h3>
 			<p>أنقر على أي أداة أو مادة لتحديدها</p>
 
 			<button onclick="move('up')">⬆️ للأعلى</button>
@@ -257,26 +257,28 @@
         
 		</div>
 
-        
+<!-- Programming object 9 -->
+	<!-- إنشاء أسهم التنقل باستخدام الماوس html -->        
         <div id="guia" >
-		  <div class="box">
-		 <div id="gui1" ></div>
-		  <div id="gui2"></div>
-		  <div id="gui3"></div>
-		  <div id="gui4"></div>
-		</div>
-		<div class="box">
-		 <div id="gui5" ></div>
-		  <div id="gui6"></div>
-		  <div id="gui7"></div>
-		  <div id="gui8"></div>
-		</div>
+			<div class="box">
+				<div id="gui1" ></div>
+				<div id="gui2"></div>
+				<div id="gui3"></div>
+				<div id="gui4"></div>
+			</div>
 		
-		 </div>
-        
-        
+			<div class="box">
+				<div id="gui5" ></div>
+				<div id="gui6"></div>
+				<div id="gui7"></div>
+				<div id="gui8"></div>
+			</div>
+		
+		</div>
+	
 <script>
-        
+//Programming object 10
+	//إنشاء متغيرات التحكم في الكاميرا والتعليقات الصوتية
         //متغير عام للتحكم فى الكاميرا
 			var x = 0;
 			var z = -99;
@@ -284,366 +286,300 @@
 		// متغيرات التحكم فى أنتاج التعليقات داخل القاعة
 			var px =0;
 			var pz=-105;
-        
-      	 // متغيرات أماكن وأحجام وتدوير الكائنات
-        var obj1101 = [13.5,  6, -13.5, 1, 1,1 , 0, 0, 0 ]; //أداة
-        var obj1102 = [12.1,5.5, -14,1, 1, 1 , 0, 0, 0 ]; //أداة
-        var obj1103 = [10.7, 6, -13.5, 1,  1,  1 , 0, 0, 0 ]; //أداة
-        var obj1104 = [9.2,  5.5, -13.5,  1,  1, 1 , 0, 0, 0 ]; //أداة
-        var obj1105 = [7.8,  5.5, -13.5,  1,  1,  1 , 0, 0, 0 ]; //أداة
-        var obj1106 = [6.5,  6.5, -13.5, 1, 1, 1 , 0, 0, 0 ]; //أداة
-        var obj1107 = [13.5,  6, -11.5, 1, 1, 1 , 0, 0, 0 ]; //مادة
-        var obj1108 = [12.1,  5.5, -11.5,1, 1, 1 , 0, 0, 0 ]; //مادة
-        var obj1109 = [10.7, 5.5, -11.5, 1, 1, 1 , 0, 0, 0 ]; //مادة
-        var obj1110 = [9.2,  5.5, -11.5, 1, 1, 1 , 0, 0, 0 ]; //مادة
-        var obj1111 = [7.8,  5.5, -11.5, 1, 1, 1 , 0, 0, 0 ]; //مادة
-        var obj1112 = [6.5,  5.5, -11.5, 1, 1, 1 , 0, 0, 0 ]; //مادة
-        
-       
-        var obj1201 = [-6.5,  5.5, -14, 1, 1, 1 , 0, 0, 0 ]; //أداة
-        var obj1202 = [-7.8,  6, -13.5, 1, 1, 1 , 0, 0, 0 ]; //أداة
-        var obj1203 = [-9.2, 5.5, -13.5, 1, 1, 1 , 0, 0, 0 ]; //أداة
-        var obj1204 = [-10.7, 6, -13.5, 1, 1,1 , 0, 0, 0 ]; //أداة
-        var obj1205 = [-12.1,  5.5, -13.5, 1, 1, 1 , 0, 0, 0 ]; //أداة
-        var obj1206 = [-13.5,  5.6, -13.5, 1,1, 1 , 0, 0, 0 ]; //أداة
-        var obj1207 = [-6.5,  5.5, -11.5, 1, 1, 1 , 0, 0, 0 ]; //مادة
-        var obj1208 = [-7.8,  6, -11.5, 1, 1, 1 , 0, 0, 0 ]; //مادة
-        var obj1209 = [-9.2,  5.5, -11.5, 1, 1, 1 , 0, 0, 0 ]; //مادة
-     /*
-        var obj1210 = [-10.7,  5.5, -11.5,0.2, 1, 1 , 0, 0, 0 ]; //مادة
-        var obj1211 = [-12.1,  5.5, -11.5, 1, 1, 1 , 0, 0, 0 ]; //مادة
-        var obj1212 = [-13.5,  5.5, -11.5, 1, 1, 1 , 0, 0, 0 ]; //مادة
-      */
-        
-		var obj1301 = [13.5,  6, 11.5,1, 1, 1 , 0, 0, 0 ]; //أداة
-        var obj1302 = [11.6,  5.5, 11.5,1, 1, 1 , 0, 0, 0 ]; //أداة
-        var obj1303 = [10.7, 6, 11.5, 1, 1, 1 , 0, 0, 0 ]; //أداة
-        var obj1304 = [9.2,  6, 11.5, 1, 1, 1 , 0, 0, 0 ]; //أداة
-        var obj1305 = [7.8,  6, 11.5, 1, 1, 1 , 0, 0, 0 ]; //أداة
-        var obj1306 = [6.5,  6, 11.5, 1, 1, 1 , 0, 0, 0 ]; //أداة
-        /*
-        var obj1307 = [13.5,  5.5, 13.5,1, 1, 1 , 0, 0, 0 ]; //مادة
-        var obj1308 = [12.1,  5.5, 13.5, 1, 1, 1 , 0, 0, 0 ]; //مادة
-        var obj1309 = [10.7,  5.5, 13.5, 1, 1, 1 , 0, 0, 0 ]; //مادة
-        var obj1310 = [9.2,  5.5, 13.5, 1, 1, 1 , 0, 0, 0 ]; //مادة
-        var obj1311 = [7.8,  5.5, 13.5, 1, 1, 1 , 0, 0, 0 ]; //مادة
-        var obj1312 = [6.5,  5.5, 13.5, 1, 1, 1 , 0, 0, 0 ]; //مادة
-        */
-       
-        var obj1401 = [-6, 5.5, 11.5, 1, 1, 1 , 0, 0, 0 ]; //أداة
-        var obj1402 = [-7.8,  6, 11.5, 1, 1, 1 , 0, 0, 0 ]; //أداة
-        var obj1403 = [-9.2, 6, 11.5, 1, 1, 1 , 0, 0, 0 ]; //أداة
-        var obj1404 = [-10.7, 6.5, 11.5, 1,1, 1 , 0, 0, 0 ]; //أداة
-        var obj1405 = [-12.1, 6, 11.5, 1, 1, 1 , 0, 0, 0 ]; //أداة
-        /*
-        var obj1406 = [-13.5,  5.5, 11.5, 1, 1, 1 , 0, 0, 0 ]; //أداة
-        var obj1407 = [-6.5,  5.5, 13.5, 1, 1, 1 , 0, 0, 0 ]; //مادة
-        var obj1408 = [-7.8,  5.5, 13.5, 1, 1, 1 , 0, 0, 0 ]; //مادة
-        var obj1409 = [-9.2,  5.5, 13.5, 1, 1, 1 , 0, 0, 0 ]; //مادة
-        var obj1410 = [-10.7,  5.5, 13.5, 1, 1, 1 , 0, 0, 0 ]; //مادة
-        var obj1411 = [-12.1,  5.5, 13.5, 1, 1, 1 , 0, 0, 0 ]; //مادة
-        var obj1412 = [-13.5,  5.5, 13.5, 1, 1, 1 , 0, 0, 0 ]; //مادة
-        */		
-        
-       
-    var canvas = document.getElementById("renderCanvas");
-    var engine = new BABYLON.Engine(canvas, true);
 
-    var selectedObject = null; // الكائن الحالي المحدد
-    var hl; // Highlight Layer
+
+//Programming object 11
+	//إنشاء متغيرات أماكن وأحجام وتدوير الكائنات
+       // متغيرات أماكن وأحجام وتدوير الكائنات
+			//إنشاء متغيرات الطاولة 11
+				var obj1101 = [13.5,  6, -13.5, 1, 1,1 , 0, 0, 0 ]; //أداة
+				var obj1102 = [12.1,5.5, -14,1, 1, 1 , 0, 0, 0 ]; //أداة
+				var obj1103 = [10.7, 6, -13.5, 1,  1,  1 , 0, 0, 0 ]; //أداة
+				var obj1104 = [9.2,  5.5, -13.5,  1,  1, 1 , 0, 0, 0 ]; //أداة
+				var obj1105 = [7.8,  5.5, -13.5,  1,  1,  1 , 0, 0, 0 ]; //أداة
+				var obj1106 = [6.5,  6.5, -13.5, 1, 1, 1 , 0, 0, 0 ]; //أداة
+				var obj1107 = [13.5,  6, -11.5, 1, 1, 1 , 0, 0, 0 ]; //مادة
+				var obj1108 = [12.1,  5.5, -11.5,1, 1, 1 , 0, 0, 0 ]; //مادة
+				var obj1109 = [10.7, 5.5, -11.5, 1, 1, 1 , 0, 0, 0 ]; //مادة
+				var obj1110 = [9.2,  5.5, -11.5, 1, 1, 1 , 0, 0, 0 ]; //مادة
+				var obj1111 = [7.8,  5.5, -11.5, 1, 1, 1 , 0, 0, 0 ]; //مادة
+				var obj1112 = [6.5,  5.5, -11.5, 1, 1, 1 , 0, 0, 0 ]; //مادة
+			
+			//إنشاء متغيرات الطاولة 12
+				var obj1201 = [-6.5,  5.5, -14, 1, 1, 1 , 0, 0, 0 ]; //أداة
+				var obj1202 = [-7.8,  6, -13.5, 1, 1, 1 , 0, 0, 0 ]; //أداة
+				var obj1203 = [-9.2, 5.5, -13.5, 1, 1, 1 , 0, 0, 0 ]; //أداة
+				var obj1204 = [-10.7, 6, -13.5, 1, 1,1 , 0, 0, 0 ]; //أداة
+				var obj1205 = [-12.1,  5.5, -13.5, 1, 1, 1 , 0, 0, 0 ]; //أداة
+				var obj1206 = [-13.5,  5.6, -13.5, 1,1, 1 , 0, 0, 0 ]; //أداة
+				var obj1207 = [-6.5,  5.5, -11.5, 1, 1, 1 , 0, 0, 0 ]; //مادة
+				var obj1208 = [-7.8,  6, -11.5, 1, 1, 1 , 0, 0, 0 ]; //مادة
+				var obj1209 = [-9.2,  5.5, -11.5, 1, 1, 1 , 0, 0, 0 ]; //مادة
+			 	var obj1210 = [-10.7,  5.5, -11.5,0.2, 1, 1 , 0, 0, 0 ]; //مادة
+				var obj1211 = [-12.1,  5.5, -11.5, 1, 1, 1 , 0, 0, 0 ]; //مادة
+				var obj1212 = [-13.5,  5.5, -11.5, 1, 1, 1 , 0, 0, 0 ]; //مادة
+			 
+			//إنشاء متغيرات الطاولة 13	
+				var obj1301 = [13.5,  6, 11.5,1, 1, 1 , 0, 0, 0 ]; //أداة
+				var obj1302 = [11.6,  5.5, 11.5,1, 1, 1 , 0, 0, 0 ]; //أداة
+				var obj1303 = [10.7, 6, 11.5, 1, 1, 1 , 0, 0, 0 ]; //أداة
+				var obj1304 = [9.2,  6, 11.5, 1, 1, 1 , 0, 0, 0 ]; //أداة
+				var obj1305 = [7.8,  6, 11.5, 1, 1, 1 , 0, 0, 0 ]; //أداة
+				var obj1306 = [6.5,  6, 11.5, 1, 1, 1 , 0, 0, 0 ]; //أداة
+				var obj1307 = [13.5,  5.5, 13.5,1, 1, 1 , 0, 0, 0 ]; //مادة
+				var obj1308 = [12.1,  5.5, 13.5, 1, 1, 1 , 0, 0, 0 ]; //مادة
+				var obj1309 = [10.7,  5.5, 13.5, 1, 1, 1 , 0, 0, 0 ]; //مادة
+				var obj1310 = [9.2,  5.5, 13.5, 1, 1, 1 , 0, 0, 0 ]; //مادة
+				var obj1311 = [7.8,  5.5, 13.5, 1, 1, 1 , 0, 0, 0 ]; //مادة
+				var obj1312 = [6.5,  5.5, 13.5, 1, 1, 1 , 0, 0, 0 ]; //مادة
+			
+			//إنشاء متغيرات الطاولة 14
+				var obj1401 = [-6, 5.5, 11.5, 1, 1, 1 , 0, 0, 0 ]; //أداة
+				var obj1402 = [-7.8,  6, 11.5, 1, 1, 1 , 0, 0, 0 ]; //أداة
+				var obj1403 = [-9.2, 6, 11.5, 1, 1, 1 , 0, 0, 0 ]; //أداة
+				var obj1404 = [-10.7, 6.5, 11.5, 1,1, 1 , 0, 0, 0 ]; //أداة
+				var obj1405 = [-12.1, 6, 11.5, 1, 1, 1 , 0, 0, 0 ]; //أداة
+				var obj1406 = [-13.5,  5.5, 11.5, 1, 1, 1 , 0, 0, 0 ]; //أداة
+				var obj1407 = [-6.5,  5.5, 13.5, 1, 1, 1 , 0, 0, 0 ]; //مادة
+				var obj1408 = [-7.8,  5.5, 13.5, 1, 1, 1 , 0, 0, 0 ]; //مادة
+				var obj1409 = [-9.2,  5.5, 13.5, 1, 1, 1 , 0, 0, 0 ]; //مادة
+				var obj1410 = [-10.7,  5.5, 13.5, 1, 1, 1 , 0, 0, 0 ]; //مادة
+				var obj1411 = [-12.1,  5.5, 13.5, 1, 1, 1 , 0, 0, 0 ]; //مادة
+				var obj1412 = [-13.5,  5.5, 13.5, 1, 1, 1 , 0, 0, 0 ]; //مادة
+				
+ 
+ 
+//Programming object 12
+	//إنشاء المحرك وربطه بقماشة الرسم    
+		var canvas = document.getElementById("renderCanvas");
+		var engine = new BABYLON.Engine(canvas, true);
+
+
+//Programming object 13
+	//إنشاء متغيرات الكائن المحدد الحالي
+		var selectedObject = null; // الكائن الحالي المحدد
+		var hl; // Highlight Layer
 
         
-        
-    var createScene = function () {
-        var scene = new BABYLON.Scene(engine);
-		// تفعيل نظام التصادم
+//Programming object 14
+	//إنشاء المشهد     
+		var createScene = function () {
+		var scene = new BABYLON.Scene(engine);
+
+		
+//Programming object 15
+	// تفعيل نظام التصادم
     	scene.collisionsEnabled = true;
-            
-            // كاميرا
-        	var camera = new BABYLON.FreeCamera("camera1", new BABYLON.Vector3(0, 5, -10), scene);
-                    camera.inputs.clear();
-                    camera.position.x = x;
-                    camera.position.y = 8;
-                    camera.position.z = z;
-                    camera.setTarget(BABYLON.Vector3.Zero());
-                    camera.attachControl(canvas, true);   
 
 
-          
-                // إضاءة
-             var light = new BABYLON.HemisphericLight("light1", new BABYLON.Vector3(0, 30, 0), scene);
-			   	 light.intensity = 1.5;
+//Programming object 16
+	// إنشاء الكاميرا
+        var camera = new BABYLON.FreeCamera("camera1", new BABYLON.Vector3(0, 5, -10), scene);
+			camera.inputs.clear();
+			camera.position.x = x;
+			camera.position.y = 8;
+			camera.position.z = z;
+			camera.setTarget(BABYLON.Vector3.Zero());
+			camera.attachControl(canvas, true);   
+
+
+//Programming object 17
+	//إنشاء الإضاءة
+        // إنشاء الإضاءة 1
+            var light = new BABYLON.HemisphericLight("light1", new BABYLON.Vector3(0, 30, 0), scene);
+			   	light.intensity = 1.5;
 				
-				//إضاءة 2
-				/**/
-          	var light3 = new BABYLON.DirectionalLight("light3", new BABYLON.Vector3(0, 100, 0), scene);
-				 light3.intensity = 1.5;
+		// إنشاء الإضاءة 2
+			
+          	var light2 = new BABYLON.DirectionalLight("light3", new BABYLON.Vector3(0, 100, 0), scene);
+				light2.intensity = 1.5;
 				
-				
-                 // Ground
+
+//Programming object 18
+	//إنشاء الأرضية	
+             
             var ground = BABYLON.MeshBuilder.CreateGround("ground", { height: 230, width: 70, subdivisions: 4 }, scene);
             var groundMaterial = new BABYLON.StandardMaterial("groundMaterial", scene);
-                    groundMaterial.diffuseTexture = new BABYLON.Texture("img/wood.jpg", scene);
-                    groundMaterial.diffuseTexture.uScale = 30;
-                    groundMaterial.diffuseTexture.vScale = 30;
-                    groundMaterial.specularColor = new BABYLON.Color3(.1, .1, .1);
-                    ground.material = groundMaterial;
-                    ground.isPickable = false;
-            /*
-            //إخفاء كائن
-            		ground.setEnabled(false); //لكائن يُستثنى تمامًا من المشهد
-                    mesh.isVisible = false; // هذا يخفي الكائن من المشهد بدون إزالته، ويمكنك إظهاره لاحقًا: الكائن ما زال فعّال ويُؤخذ في الحسابات مثل الاصطدام
-            //الكائن شفاف
-            mesh.material.alpha = 0;//إذا أردت أن يظل mesh موجودًا لكن شفافًا:
-            mesh.visibility = 0;// او 
-            //حذف الكائن نهائيا
-            mesh.dispose();
-			*/
-            
-         //////
-            
-             /*الانتقال والاستدارة من خلال html */
-            
-            
-            /*الانتقال إلى الأمام */
+				groundMaterial.diffuseTexture = new BABYLON.Texture("img/wood.jpg", scene);
+				groundMaterial.diffuseTexture.uScale = 30;
+				groundMaterial.diffuseTexture.vScale = 30;
+				groundMaterial.specularColor = new BABYLON.Color3(.1, .1, .1);
+				ground.material = groundMaterial;
+				ground.isPickable = false;
+
+           
+//Programming object 20
+	//الانتقال والاستدارة من خلال html
+        /*الانتقال إلى الأمام */
             let moveInterval = null;
+			
+			gui1.addEventListener("mousedown", () => {
+            if (camera ) {
+            // نبدأ الحركة المتكررة
+            moveInterval = setInterval(() => {
+            if( z < 25 && z > -100 &&  x < 26 &&  x > -26 ) {
+                camera.position.z += 0.1; // السرعة
+                z += 0.1;
+                pz += 0.1;
+          		};     
+                }, 16); // كل 16ms ~ 60fps
+                }
+                });
+
+            gui1.addEventListener("mouseup", () => {
+            clearInterval(moveInterval); // توقف الحركة عند رفع اليد
+                });
+
+            gui1.addEventListener("mouseleave", () => {
+                    clearInterval(moveInterval); // لو خرج الماوس من الزر
+                });
+       
+	   
+        /*الانتقال إلى الخلف */
+            gui2.addEventListener("mousedown", () => {
+            if (camera) {
+            // نبدأ الحركة المتكررة
+            moveInterval = setInterval(() => {
+            if( z < 26 && z > -99 &&  x < 26 &&  x > -26 ) {
+                camera.position.z -= 0.1; // السرعة
+                z -= 0.1;
+				pz -= 0.1;
+				};
+                }, 16); // كل 16ms ~ 60fps
+                }
+                });
+
+            gui2.addEventListener("mouseup", () => {
+                clearInterval(moveInterval); // توقف الحركة عند رفع اليد
+                });
+
+            gui2.addEventListener("mouseleave", () => {
+                clearInterval(moveInterval); // لو خرج الماوس من الزر
+                });
+
+
+        /*الانتقال إلى اليمين */
+            gui3.addEventListener("mousedown", () => {
+            if (camera) {
+            // نبدأ الحركة المتكررة
+            moveInterval = setInterval(() => {
+            if( x > -26 && x <25 && z > -100 && z < 26 ){
+            camera.position.x += 0.1; // السرعة
+            x +=  0.1;
+			px +=  0.1;
+			};
+            }, 16); // كل 16ms ~ 60fps
+            }
+            });
+
+            gui3.addEventListener("mouseup", () => {
+                clearInterval(moveInterval); // توقف الحركة عند رفع اليد
+                });
+
+            gui3.addEventListener("mouseleave", () => {
+            clearInterval(moveInterval); // لو خرج الماوس من الزر
+                });
+
+
+        /*الانتقال إلى اليسار */
+            gui4.addEventListener("mousedown", () => {
+            if (camera) {
+            // نبدأ الحركة المتكررة
+            moveInterval = setInterval(() => {
+            if(  x > -25 &&  x < 26  && z > -100 && z < 26 ){
+                camera.position.x -= 0.1; // السرعة
+                x -=  0.1;
+				px -=  0.1;
+				};
+                }, 16); // كل 16ms ~ 60fps
+                }
+                });
+
+            gui4.addEventListener("mouseup", () => {
+            clearInterval(moveInterval); // توقف الحركة عند رفع اليد
+                });
+
+            gui4.addEventListener("mouseleave", () => {
+            clearInterval(moveInterval); // لو خرج الماوس من الزر
+                });
+
+            
+        /*الاستدارة إلى أعلى */
+            gui5.addEventListener("mousedown", () => {
+            if (camera) {
+            // نبدأ الحركة المتكررة
+            moveInterval = setInterval(() => {
+                camera.rotation.x -= 0.001 // السرعة
+                }, 1); // كل 16ms ~ 60fps
+                }
+                });
+
+            gui5.addEventListener("mouseup", () => {
+            clearInterval(moveInterval); // توقف الحركة عند رفع اليد
+                });
+
+            gui5.addEventListener("mouseleave", () => {
+            clearInterval(moveInterval); // لو خرج الماوس من الزر
+                });
+
+            
+        /*الاستدارة إلى أسفل*/
+            gui6.addEventListener("mousedown", () => {
+            if (camera) {
+            // نبدأ الحركة المتكررة
+            moveInterval = setInterval(() => {
+            camera.rotation.x += 0.001; // السرعة
+            }, 1); // كل 16ms ~ 60fps
+            }
+            });
+
+            gui6.addEventListener("mouseup", () => {
+            clearInterval(moveInterval); // توقف الحركة عند رفع اليد
+                });
+
+            gui6.addEventListener("mouseleave", () => {
+            clearInterval(moveInterval); // لو خرج الماوس من الزر
+                });
+
+            
+        /*الاستدارة إلى اليمين*/
+            gui7.addEventListener("mousedown", () => {
+            if (camera) {
+            // نبدأ الحركة المتكررة
+            moveInterval = setInterval(() => {
+            camera.rotation.y += 0.001; // السرعة
+                }, 1); // كل 16ms ~ 60fps
+                }
+                });
+
+            gui7.addEventListener("mouseup", () => {
+            clearInterval(moveInterval); // توقف الحركة عند رفع اليد
+                });
+
+            gui7.addEventListener("mouseleave", () => {
+            clearInterval(moveInterval); // لو خرج الماوس من الزر
+                });
+
+            
+		/*الاستدارة إلى اليسار*/
+			gui8.addEventListener("mousedown", () => {
+            if (camera) {
+            // نبدأ الحركة المتكررة
+            moveInterval = setInterval(() => {
+            camera.rotation.y -= 0.001; // السرعة
+            }, 1); // كل 16ms ~ 60fps
+            }
+            });
+
+            gui8.addEventListener("mouseup", () => {
+            clearInterval(moveInterval); // توقف الحركة عند رفع اليد
+                });
+
+            gui8.addEventListener("mouseleave", () => {
+			clearInterval(moveInterval); // لو خرج الماوس من الزر
+                });
+
  
-                   
-                gui1.addEventListener("mousedown", () => {
-                    if (camera ) {
-                        // نبدأ الحركة المتكررة
-                        moveInterval = setInterval(() => {
-                     if( z < 25 && z > -100 &&  x < 26 &&  x > -26 ) {
-                            camera.position.z += 0.1; // السرعة
-                      z += 0.1;
-                          pz += 0.1;
-          
-					};     
-                        }, 16); // كل 16ms ~ 60fps
-                    }
-                });
-
-                gui1.addEventListener("mouseup", () => {
-                    clearInterval(moveInterval); // توقف الحركة عند رفع اليد
-                });
-
-                gui1.addEventListener("mouseleave", () => {
-                    clearInterval(moveInterval); // لو خرج الماوس من الزر
-                });
-          
-          
-					
-
-           	 /*الانتقال إلى الخلف */
-     
-
-					
-                gui2.addEventListener("mousedown", () => {
-                    if (camera) {
-                        // نبدأ الحركة المتكررة
-                        moveInterval = setInterval(() => {
-                        if( z < 26 && z > -99 &&  x < 26 &&  x > -26 ) {
-                            camera.position.z -= 0.1; // السرعة
-                        
-                          z -= 0.1;
-					pz -= 0.1;
-					 };
-                        }, 16); // كل 16ms ~ 60fps
-                    }
-                });
-
-                gui2.addEventListener("mouseup", () => {
-                    clearInterval(moveInterval); // توقف الحركة عند رفع اليد
-                });
-
-                gui2.addEventListener("mouseleave", () => {
-                    clearInterval(moveInterval); // لو خرج الماوس من الزر
-                });
-
-            /*الانتقال إلى اليمين */
-           
-					
-
-                gui3.addEventListener("mousedown", () => {
-                    if (camera) {
-                        // نبدأ الحركة المتكررة
-                        moveInterval = setInterval(() => {
-                        if( x > -26 && x <25 && z > -100 && z < 26 ){
-                            camera.position.x += 0.1; // السرعة
-                        x +=  0.1;
-						px +=  0.1;
-						};
-                        }, 16); // كل 16ms ~ 60fps
-                    }
-                });
-
-                gui3.addEventListener("mouseup", () => {
-                    clearInterval(moveInterval); // توقف الحركة عند رفع اليد
-                });
-
-                gui3.addEventListener("mouseleave", () => {
-                    clearInterval(moveInterval); // لو خرج الماوس من الزر
-                });
-
-            
-            /*الانتقال إلى اليسار */
-           
-
-                gui4.addEventListener("mousedown", () => {
-                    if (camera) {
-                        // نبدأ الحركة المتكررة
-                        moveInterval = setInterval(() => {
-                                if(  x > -25 &&  x < 26  && z > -100 && z < 26 ){
-                            camera.position.x -= 0.1; // السرعة
-                       x -=  0.1;
-						px -=  0.1;
-						};
-                                }, 16); // كل 16ms ~ 60fps
-                    }
-                });
-
-                gui4.addEventListener("mouseup", () => {
-                    clearInterval(moveInterval); // توقف الحركة عند رفع اليد
-                });
-
-                gui4.addEventListener("mouseleave", () => {
-                    clearInterval(moveInterval); // لو خرج الماوس من الزر
-                });
-
-            
-            /*الاستدارة إلى أعلى */
-           
-
-                gui5.addEventListener("mousedown", () => {
-                    if (camera) {
-                        // نبدأ الحركة المتكررة
-                        moveInterval = setInterval(() => {
-                            camera.rotation.x -= 0.001 // السرعة
-                        }, 1); // كل 16ms ~ 60fps
-                    }
-                });
-
-                gui5.addEventListener("mouseup", () => {
-                    clearInterval(moveInterval); // توقف الحركة عند رفع اليد
-                });
-
-                gui5.addEventListener("mouseleave", () => {
-                    clearInterval(moveInterval); // لو خرج الماوس من الزر
-                });
-
-            
-            /*الاستدارة إلى أسفل*/
-          
-
-                gui6.addEventListener("mousedown", () => {
-                    if (camera) {
-                        // نبدأ الحركة المتكررة
-                        moveInterval = setInterval(() => {
-                            camera.rotation.x += 0.001; // السرعة
-                        }, 1); // كل 16ms ~ 60fps
-                    }
-                });
-
-                gui6.addEventListener("mouseup", () => {
-                    clearInterval(moveInterval); // توقف الحركة عند رفع اليد
-                });
-
-                gui6.addEventListener("mouseleave", () => {
-                    clearInterval(moveInterval); // لو خرج الماوس من الزر
-                });
-
-            
-            /*الاستدارة إلى اليمين*/
-            
-
-                gui7.addEventListener("mousedown", () => {
-                    if (camera) {
-                        // نبدأ الحركة المتكررة
-                        moveInterval = setInterval(() => {
-                            camera.rotation.y += 0.001; // السرعة
-                        }, 1); // كل 16ms ~ 60fps
-                    }
-                });
-
-                gui7.addEventListener("mouseup", () => {
-                    clearInterval(moveInterval); // توقف الحركة عند رفع اليد
-                });
-
-                gui7.addEventListener("mouseleave", () => {
-                    clearInterval(moveInterval); // لو خرج الماوس من الزر
-                });
-
-            
-            /*الاستدارة إلى اليسار*/
-             
-
-                gui8.addEventListener("mousedown", () => {
-                    if (camera) {
-                        // نبدأ الحركة المتكررة
-                        moveInterval = setInterval(() => {
-                            camera.rotation.y -= 0.001; // السرعة
-                        }, 1); // كل 16ms ~ 60fps
-                    }
-                });
-
-                gui8.addEventListener("mouseup", () => {
-                    clearInterval(moveInterval); // توقف الحركة عند رفع اليد
-                });
-
-                gui8.addEventListener("mouseleave", () => {
-                    clearInterval(moveInterval); // لو خرج الماوس من الزر
-                });
-
-            
-
-            /////
-
-      
-        
-            ////////
-      // ✋ اليد الافتراضية
-   
-            /*يد افتراضية تعمل
-            // ✋ اليد الافتراضية
-    const hand = BABYLON.MeshBuilder.CreateSphere("hand", {diameter: 0.3}, scene);
-    const handMat = new BABYLON.StandardMaterial("handMat", scene);
-    handMat.diffuseColor = new BABYLON.Color3(0.2, 0.5, 1);
-    hand.material = handMat;
-           
-   
-            // ✨ تحديث موضع اليد أمام الكاميرا باستمرار
-    scene.onBeforeRenderObservable.add(() => {
-        const forward = camera.getDirection(BABYLON.Axis.Z).scale(2); // أمام الكاميرا
-        const right = camera.getDirection(BABYLON.Axis.X).scale(0.3); // انحراف بسيط لليمين
-        const up = new BABYLON.Vector3(0, -0.3, 0); // أسفل قليلاً
-
-        hand.position = camera.position.add(forward).add(right).add(up);
-        hand.rotation = camera.rotation; // نفس اتجاه الكاميرا
-    });
-    */
-            
-             // ✋ اليد الافتراضية
-    		//تم إخفاء اليد مؤقتا
-           /*
-            const hand = new BABYLON.SceneLoader.ImportMesh("", "models/", "2.obj", scene, function (meshes) {
-            var model1 = meshes[0];
-                
-           scene.onBeforeRenderObservable.add(() => {
-        const forward = camera.getDirection(BABYLON.Axis.Z).scale(2); // أمام الكاميرا
-        const right = camera.getDirection(BABYLON.Axis.X).scale(0.3); // انحراف بسيط لليمين
-        const up = new BABYLON.Vector3(0, -0.3, 0); // أسفل قليلاً
-
-        model1.position = camera.position.add(forward).add(right).add(up);
-         model1.scaling = new BABYLON.Vector3(0.3 , 0.3 , 0.3);
-        model1.rotation = camera.rotation; // نفس اتجاه الكاميرا
-    });
-              
-                    
-              });    
-           
-      
-          */
-           
 				
     ///////////////////////////////
           /*  
