@@ -1,0 +1,3335 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset="utf-8">
+    <title>برنامج المعمل الافتراضي</title>
+        
+         <!-- Babylon.js -->
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/dat-gui/0.6.2/dat.gui.min.js"></script>
+        <script src="https://assets.babylonjs.com/generated/Assets.js"></script>
+        <script src="https://cdn.babylonjs.com/recast.js"></script>
+        <script src="https://cdn.babylonjs.com/ammo.js"></script>
+        <script src="https://cdn.babylonjs.com/havok/HavokPhysics_umd.js"></script>
+        <script src="https://cdn.babylonjs.com/cannon.js"></script>
+        <script src="https://cdn.babylonjs.com/Oimo.js"></script>
+        <script src="https://cdn.babylonjs.com/earcut.min.js"></script>
+        <script src="https://cdn.babylonjs.com/babylon.js"></script>
+        <script src="https://cdn.babylonjs.com/materialsLibrary/babylonjs.materials.min.js"></script>
+        <script src="https://cdn.babylonjs.com/proceduralTexturesLibrary/babylonjs.proceduralTextures.min.js"></script>
+        <script src="https://cdn.babylonjs.com/postProcessesLibrary/babylonjs.postProcess.min.js"></script>
+        <script src="https://cdn.babylonjs.com/loaders/babylonjs.loaders.js"></script>
+        <script src="https://cdn.babylonjs.com/serializers/babylonjs.serializers.min.js"></script>
+        <script src="https://cdn.babylonjs.com/gui/babylon.gui.min.js"></script>
+        <script src="https://cdn.babylonjs.com/addons/babylonjs.addons.min.js"></script>
+        <script src="https://cdn.babylonjs.com/inspector/babylon.inspector.bundle.js"></script>
+        
+        
+    <script src="https://cdn.babylonjs.com/babylon.js"></script>
+    <script src="https://cdn.babylonjs.com/loaders/babylon.objFileLoader.js"></script>
+                <style>
+            html,
+            body {
+                overflow: hidden;
+                width: 100%;
+                height: 100%;
+                margin: 0;
+                padding: 0;
+                display: flex;
+              justify-content: center;        /* يضع الـ container في المنتصف أفقياً */
+              align-items: center;            /* يضع الـ container في المنتصف عمودياً */
+              background: #f0f0f0;
+                    }
+
+            #renderCanvas {
+                width: 100%;
+                height: 100%;
+                touch-action: none;
+            }
+
+            #canvasZone {
+                width: 100%;
+                height: 100%;
+            }
+        </style>
+        
+        
+    <style>
+        body { margin: 0; overflow: hidden; }
+        #ui {
+                direction: rtl;
+              text-align: center;
+            position: absolute;
+            top: 10px; right: 10px;
+            background: rgba(255,255,255,0.9);
+            padding: 10px;
+            border-radius: 10px;
+        }
+        button { margin: 3px; padding: 5px 10px; }
+    </style>
+        
+       
+          <style>
+           .box {
+      width: 300px;
+      height: 100px;
+      color: white;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 18px;
+      border-radius: 10px;
+	    background: rgba(255,255,255,0)
+    }
+	 #guia {
+      position: absolute;
+	 top: 75%;
+     gap: 10px; 
+      width: 300px;
+      height: 100px;
+      
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    };
+	
+	
+	 #guic {
+    
+    
+    }
+	
+	
+	
+	
+	 /*الانتقال إلى الأمام */
+	#gui1 {
+      position: absolute;
+      top: 5%;
+	  right: 18%;
+       width: 0;
+ height: 0;
+ border-left: 20px solid transparent;
+ border-right: 20px solid transparent;
+ border-bottom: 40px solid rgb(0,128,0) ;
+ 
+    
+    }
+	
+    
+/*الانتقال إلى الخلف */
+#gui2{
+      position: absolute;
+      bottom: 5%;
+	  right: 18%;
+      width: 0;
+ height: 0;
+ border-left: 20px solid transparent;
+ border-right: 20px solid transparent;
+ border-top: 40px solid rgb( 0,128,0) ;
+     
+     
+    }
+/*الانتقال إلى اليمين */
+	#gui3{
+     position: absolute;
+      right: 4%;
+      width: 0;
+ height: 0;
+ border-top: 20px solid transparent;
+ border-bottom: 20px solid transparent;
+ border-left: 40px solid rgb(0,128,0) ;
+    
+     
+    }
+/*الانتقال إلى اليسار */	
+	#gui4{
+     position: absolute;
+      right: 33%;
+	  width: 0;
+ height: 0;
+ border-top: 20px solid transparent;
+ border-bottom: 20px solid transparent;
+ border-right: 40px solid rgb(0,128,0) ;
+ 
+     
+      
+    }
+/*الاستدارة إلى أعلى */		
+	#gui5 {
+       position: absolute;
+      top: 5%;
+	  right: 70%;
+       width: 0;
+ height: 0;
+ border-left: 20px solid transparent;
+ border-right: 20px solid transparent;
+ border-bottom: 40px solid rgb( 0, 0, 255) ;
+     
+     
+    
+    }
+
+/*الاستدارة إلى أسفل*/
+#gui6{
+      position: absolute;
+      bottom: 5%;
+	  right: 70%;
+     width: 0;
+ height: 0;
+ border-left: 20px solid transparent;
+ border-right: 20px solid transparent;
+ border-top: 40px solid rgb(0, 0, 255) ;
+     
+	  
+      
+      
+    }
+	/*الاستدارة إلى اليمين*/
+	#gui7{
+      position: absolute;
+      right: 56%;
+     width: 0;
+ height: 0;
+ border-top: 20px solid transparent;
+ border-bottom: 20px solid transparent;
+ border-left: 40px solid rgb(0, 0, 255) ;
+    
+    }
+	/*الاستدارة إلى اليسار*/
+	#gui8{
+     position: absolute;
+      right: 84%;
+    width: 0;
+ height: 0;
+ border-top: 20px solid transparent;
+ border-bottom: 20px solid transparent;
+ border-right: 40px solid rgb( 0, 0, 255) ;
+     
+    }       
+            </style>
+        
+        
+        
+</head>
+<body dir= "rtl">
+<canvas id="renderCanvas" style="width:100%; height:100%;"></canvas>
+
+<!-- لوحة التحكم -->
+<div id="ui" >
+    <h3>لوحة التحكم</h3>
+    <p>أنقر على أي أداة أو مادة لتحديدها</p>
+
+    <button onclick="move('up')">⬆️ للأعلى</button>
+    <button onclick="move('down')">⬇️ للأسفل</button><br>
+        
+    <button onclick="move('right')">➡️ لليمين</button>
+   	<button onclick="move('left')">⬅️ لليسار</button><br>
+  
+    <button onclick="move('forward')">🔼 للأمام</button>
+    <button onclick="move('backward')">🔽 للخلف</button><br><br>
+
+    <button onclick="rotate('right')">↻ تدوير يمين</button>
+    <button onclick="rotate('left')">↺ تدوير يسار</button><br>
+    
+
+    <button onclick="scale('up')">➕ تكبير</button>
+    <button onclick="scale('down')">➖ تصغير</button><br>
+      
+     <button onclick="scale('')">تجربة جديدة</button><br>
+        <button onclick="scale('')">الطاولة الأولى</button><br>
+        <!-- 
+         <button id="showBtn">إظهار الكائن</button>
+    <button id="toggleBtn">إظهار/إخفاء</button><br>
+  
+         <button onclick="Interaction11141('t')">اظهار كائن مؤقت</button>
+        <button id="showBtn2">إظهار النموذج</button>
+  -->
+        <button id="toggleBtn111">إظهار التجربة الأولى</button>
+        <button id="toggleBtn112">اظهار التجربة الثانية</button>
+        
+</div>
+
+        
+        <div id="guia" >
+		  <div class="box">
+		 <div id="gui1" ></div>
+		  <div id="gui2"></div>
+		  <div id="gui3"></div>
+		  <div id="gui4"></div>
+		</div>
+		<div class="box">
+		 <div id="gui5" ></div>
+		  <div id="gui6"></div>
+		  <div id="gui7"></div>
+		  <div id="gui8"></div>
+		</div>
+		
+		 </div>
+        
+        
+<script>
+        
+        //متغير عام للتحكم فى الكاميرا
+			var x = 0;
+			var z = -99;
+		
+		// متغيرات التحكم فى أنتاج التعليقات داخل القاعة
+			var px =0;
+			var pz=-105;
+        
+      	 // متغيرات أماكن وأحجام وتدوير الكائنات
+        var obj1101 = [13.5,  6, -13.5, 1, 1,1 , 0, 0, 0 ]; //أداة
+        var obj1102 = [12.1,5.5, -14,1, 1, 1 , 0, 0, 0 ]; //أداة
+        var obj1103 = [10.7, 6, -13.5, 1,  1,  1 , 0, 0, 0 ]; //أداة
+        var obj1104 = [9.2,  5.5, -13.5,  1,  1, 1 , 0, 0, 0 ]; //أداة
+        var obj1105 = [7.8,  5.5, -13.5,  1,  1,  1 , 0, 0, 0 ]; //أداة
+        var obj1106 = [6.5,  6.5, -13.5, 1, 1, 1 , 0, 0, 0 ]; //أداة
+        var obj1107 = [13.5,  6, -11.5, 1, 1, 1 , 0, 0, 0 ]; //مادة
+        var obj1108 = [12.1,  5.5, -11.5,1, 1, 1 , 0, 0, 0 ]; //مادة
+        var obj1109 = [10.7, 5.5, -11.5, 1, 1, 1 , 0, 0, 0 ]; //مادة
+        var obj1110 = [9.2,  5.5, -11.5, 1, 1, 1 , 0, 0, 0 ]; //مادة
+        var obj1111 = [7.8,  5.5, -11.5, 1, 1, 1 , 0, 0, 0 ]; //مادة
+        var obj1112 = [6.5,  5.5, -11.5, 1, 1, 1 , 0, 0, 0 ]; //مادة
+        
+       
+        var obj1201 = [-6.5,  5.5, -14, 1, 1, 1 , 0, 0, 0 ]; //أداة
+        var obj1202 = [-7.8,  6, -13.5, 1, 1, 1 , 0, 0, 0 ]; //أداة
+        var obj1203 = [-9.2, 5.5, -13.5, 1, 1, 1 , 0, 0, 0 ]; //أداة
+        var obj1204 = [-10.7, 6, -13.5, 1, 1,1 , 0, 0, 0 ]; //أداة
+        var obj1205 = [-12.1,  5.5, -13.5, 1, 1, 1 , 0, 0, 0 ]; //أداة
+        var obj1206 = [-13.5,  5.6, -13.5, 1,1, 1 , 0, 0, 0 ]; //أداة
+        var obj1207 = [-6.5,  5.5, -11.5, 1, 1, 1 , 0, 0, 0 ]; //مادة
+        var obj1208 = [-7.8,  6, -11.5, 1, 1, 1 , 0, 0, 0 ]; //مادة
+        var obj1209 = [-9.2,  5.5, -11.5, 1, 1, 1 , 0, 0, 0 ]; //مادة
+     /*
+        var obj1210 = [-10.7,  5.5, -11.5,0.2, 1, 1 , 0, 0, 0 ]; //مادة
+        var obj1211 = [-12.1,  5.5, -11.5, 1, 1, 1 , 0, 0, 0 ]; //مادة
+        var obj1212 = [-13.5,  5.5, -11.5, 1, 1, 1 , 0, 0, 0 ]; //مادة
+      */
+        
+		var obj1301 = [13.5,  6, 11.5,1, 1, 1 , 0, 0, 0 ]; //أداة
+        var obj1302 = [11.6,  5.5, 11.5,1, 1, 1 , 0, 0, 0 ]; //أداة
+        var obj1303 = [10.7, 6, 11.5, 1, 1, 1 , 0, 0, 0 ]; //أداة
+        var obj1304 = [9.2,  6, 11.5, 1, 1, 1 , 0, 0, 0 ]; //أداة
+        var obj1305 = [7.8,  6, 11.5, 1, 1, 1 , 0, 0, 0 ]; //أداة
+        var obj1306 = [6.5,  6, 11.5, 1, 1, 1 , 0, 0, 0 ]; //أداة
+        /*
+        var obj1307 = [13.5,  5.5, 13.5,1, 1, 1 , 0, 0, 0 ]; //مادة
+        var obj1308 = [12.1,  5.5, 13.5, 1, 1, 1 , 0, 0, 0 ]; //مادة
+        var obj1309 = [10.7,  5.5, 13.5, 1, 1, 1 , 0, 0, 0 ]; //مادة
+        var obj1310 = [9.2,  5.5, 13.5, 1, 1, 1 , 0, 0, 0 ]; //مادة
+        var obj1311 = [7.8,  5.5, 13.5, 1, 1, 1 , 0, 0, 0 ]; //مادة
+        var obj1312 = [6.5,  5.5, 13.5, 1, 1, 1 , 0, 0, 0 ]; //مادة
+        */
+       
+        var obj1401 = [-6, 5.5, 11.5, 1, 1, 1 , 0, 0, 0 ]; //أداة
+        var obj1402 = [-7.8,  6, 11.5, 1, 1, 1 , 0, 0, 0 ]; //أداة
+        var obj1403 = [-9.2, 6, 11.5, 1, 1, 1 , 0, 0, 0 ]; //أداة
+        var obj1404 = [-10.7, 6.5, 11.5, 1,1, 1 , 0, 0, 0 ]; //أداة
+        var obj1405 = [-12.1, 6, 11.5, 1, 1, 1 , 0, 0, 0 ]; //أداة
+        /*
+        var obj1406 = [-13.5,  5.5, 11.5, 1, 1, 1 , 0, 0, 0 ]; //أداة
+        var obj1407 = [-6.5,  5.5, 13.5, 1, 1, 1 , 0, 0, 0 ]; //مادة
+        var obj1408 = [-7.8,  5.5, 13.5, 1, 1, 1 , 0, 0, 0 ]; //مادة
+        var obj1409 = [-9.2,  5.5, 13.5, 1, 1, 1 , 0, 0, 0 ]; //مادة
+        var obj1410 = [-10.7,  5.5, 13.5, 1, 1, 1 , 0, 0, 0 ]; //مادة
+        var obj1411 = [-12.1,  5.5, 13.5, 1, 1, 1 , 0, 0, 0 ]; //مادة
+        var obj1412 = [-13.5,  5.5, 13.5, 1, 1, 1 , 0, 0, 0 ]; //مادة
+        */		
+        
+       
+    var canvas = document.getElementById("renderCanvas");
+    var engine = new BABYLON.Engine(canvas, true);
+
+    var selectedObject = null; // الكائن الحالي المحدد
+    var hl; // Highlight Layer
+
+        
+        
+    var createScene = function () {
+        var scene = new BABYLON.Scene(engine);
+		// تفعيل نظام التصادم
+    	scene.collisionsEnabled = true;
+            
+            // كاميرا
+        	var camera = new BABYLON.FreeCamera("camera1", new BABYLON.Vector3(0, 5, -10), scene);
+                    camera.inputs.clear();
+                    camera.position.x = x;
+                    camera.position.y = 8;
+                    camera.position.z = z;
+                    camera.setTarget(BABYLON.Vector3.Zero());
+                    camera.attachControl(canvas, true);   
+
+
+          
+                // إضاءة
+             var light = new BABYLON.HemisphericLight("light1", new BABYLON.Vector3(0, 30, 0), scene);
+			   	 light.intensity = 1.5;
+				
+				//إضاءة 2
+				/**/
+          	var light3 = new BABYLON.DirectionalLight("light3", new BABYLON.Vector3(0, 100, 0), scene);
+				 light3.intensity = 1.5;
+				
+				
+                 // Ground
+            var ground = BABYLON.MeshBuilder.CreateGround("ground", { height: 230, width: 70, subdivisions: 4 }, scene);
+            var groundMaterial = new BABYLON.StandardMaterial("groundMaterial", scene);
+                    groundMaterial.diffuseTexture = new BABYLON.Texture("img/wood.jpg", scene);
+                    groundMaterial.diffuseTexture.uScale = 30;
+                    groundMaterial.diffuseTexture.vScale = 30;
+                    groundMaterial.specularColor = new BABYLON.Color3(.1, .1, .1);
+                    ground.material = groundMaterial;
+                    ground.isPickable = false;
+            /*
+            //إخفاء كائن
+            		ground.setEnabled(false); //لكائن يُستثنى تمامًا من المشهد
+                    mesh.isVisible = false; // هذا يخفي الكائن من المشهد بدون إزالته، ويمكنك إظهاره لاحقًا: الكائن ما زال فعّال ويُؤخذ في الحسابات مثل الاصطدام
+            //الكائن شفاف
+            mesh.material.alpha = 0;//إذا أردت أن يظل mesh موجودًا لكن شفافًا:
+            mesh.visibility = 0;// او 
+            //حذف الكائن نهائيا
+            mesh.dispose();
+			*/
+            
+         //////
+            
+             /*الانتقال والاستدارة من خلال html */
+            
+            
+            /*الانتقال إلى الأمام */
+            let moveInterval = null;
+ 
+                   
+                gui1.addEventListener("mousedown", () => {
+                    if (camera ) {
+                        // نبدأ الحركة المتكررة
+                        moveInterval = setInterval(() => {
+                     if( z < 25 && z > -100 &&  x < 26 &&  x > -26 ) {
+                            camera.position.z += 0.1; // السرعة
+                      z += 0.1;
+                          pz += 0.1;
+          
+					};     
+                        }, 16); // كل 16ms ~ 60fps
+                    }
+                });
+
+                gui1.addEventListener("mouseup", () => {
+                    clearInterval(moveInterval); // توقف الحركة عند رفع اليد
+                });
+
+                gui1.addEventListener("mouseleave", () => {
+                    clearInterval(moveInterval); // لو خرج الماوس من الزر
+                });
+          
+          
+					
+
+           	 /*الانتقال إلى الخلف */
+     
+
+					
+                gui2.addEventListener("mousedown", () => {
+                    if (camera) {
+                        // نبدأ الحركة المتكررة
+                        moveInterval = setInterval(() => {
+                        if( z < 26 && z > -99 &&  x < 26 &&  x > -26 ) {
+                            camera.position.z -= 0.1; // السرعة
+                        
+                          z -= 0.1;
+					pz -= 0.1;
+					 };
+                        }, 16); // كل 16ms ~ 60fps
+                    }
+                });
+
+                gui2.addEventListener("mouseup", () => {
+                    clearInterval(moveInterval); // توقف الحركة عند رفع اليد
+                });
+
+                gui2.addEventListener("mouseleave", () => {
+                    clearInterval(moveInterval); // لو خرج الماوس من الزر
+                });
+
+            /*الانتقال إلى اليمين */
+           
+					
+
+                gui3.addEventListener("mousedown", () => {
+                    if (camera) {
+                        // نبدأ الحركة المتكررة
+                        moveInterval = setInterval(() => {
+                        if( x > -26 && x <25 && z > -100 && z < 26 ){
+                            camera.position.x += 0.1; // السرعة
+                        x +=  0.1;
+						px +=  0.1;
+						};
+                        }, 16); // كل 16ms ~ 60fps
+                    }
+                });
+
+                gui3.addEventListener("mouseup", () => {
+                    clearInterval(moveInterval); // توقف الحركة عند رفع اليد
+                });
+
+                gui3.addEventListener("mouseleave", () => {
+                    clearInterval(moveInterval); // لو خرج الماوس من الزر
+                });
+
+            
+            /*الانتقال إلى اليسار */
+           
+
+                gui4.addEventListener("mousedown", () => {
+                    if (camera) {
+                        // نبدأ الحركة المتكررة
+                        moveInterval = setInterval(() => {
+                                if(  x > -25 &&  x < 26  && z > -100 && z < 26 ){
+                            camera.position.x -= 0.1; // السرعة
+                       x -=  0.1;
+						px -=  0.1;
+						};
+                                }, 16); // كل 16ms ~ 60fps
+                    }
+                });
+
+                gui4.addEventListener("mouseup", () => {
+                    clearInterval(moveInterval); // توقف الحركة عند رفع اليد
+                });
+
+                gui4.addEventListener("mouseleave", () => {
+                    clearInterval(moveInterval); // لو خرج الماوس من الزر
+                });
+
+            
+            /*الاستدارة إلى أعلى */
+           
+
+                gui5.addEventListener("mousedown", () => {
+                    if (camera) {
+                        // نبدأ الحركة المتكررة
+                        moveInterval = setInterval(() => {
+                            camera.rotation.x -= 0.001 // السرعة
+                        }, 1); // كل 16ms ~ 60fps
+                    }
+                });
+
+                gui5.addEventListener("mouseup", () => {
+                    clearInterval(moveInterval); // توقف الحركة عند رفع اليد
+                });
+
+                gui5.addEventListener("mouseleave", () => {
+                    clearInterval(moveInterval); // لو خرج الماوس من الزر
+                });
+
+            
+            /*الاستدارة إلى أسفل*/
+          
+
+                gui6.addEventListener("mousedown", () => {
+                    if (camera) {
+                        // نبدأ الحركة المتكررة
+                        moveInterval = setInterval(() => {
+                            camera.rotation.x += 0.001; // السرعة
+                        }, 1); // كل 16ms ~ 60fps
+                    }
+                });
+
+                gui6.addEventListener("mouseup", () => {
+                    clearInterval(moveInterval); // توقف الحركة عند رفع اليد
+                });
+
+                gui6.addEventListener("mouseleave", () => {
+                    clearInterval(moveInterval); // لو خرج الماوس من الزر
+                });
+
+            
+            /*الاستدارة إلى اليمين*/
+            
+
+                gui7.addEventListener("mousedown", () => {
+                    if (camera) {
+                        // نبدأ الحركة المتكررة
+                        moveInterval = setInterval(() => {
+                            camera.rotation.y += 0.001; // السرعة
+                        }, 1); // كل 16ms ~ 60fps
+                    }
+                });
+
+                gui7.addEventListener("mouseup", () => {
+                    clearInterval(moveInterval); // توقف الحركة عند رفع اليد
+                });
+
+                gui7.addEventListener("mouseleave", () => {
+                    clearInterval(moveInterval); // لو خرج الماوس من الزر
+                });
+
+            
+            /*الاستدارة إلى اليسار*/
+             
+
+                gui8.addEventListener("mousedown", () => {
+                    if (camera) {
+                        // نبدأ الحركة المتكررة
+                        moveInterval = setInterval(() => {
+                            camera.rotation.y -= 0.001; // السرعة
+                        }, 1); // كل 16ms ~ 60fps
+                    }
+                });
+
+                gui8.addEventListener("mouseup", () => {
+                    clearInterval(moveInterval); // توقف الحركة عند رفع اليد
+                });
+
+                gui8.addEventListener("mouseleave", () => {
+                    clearInterval(moveInterval); // لو خرج الماوس من الزر
+                });
+
+            
+
+            /////
+
+      
+        
+            ////////
+      // ✋ اليد الافتراضية
+   
+            /*يد افتراضية تعمل
+            // ✋ اليد الافتراضية
+    const hand = BABYLON.MeshBuilder.CreateSphere("hand", {diameter: 0.3}, scene);
+    const handMat = new BABYLON.StandardMaterial("handMat", scene);
+    handMat.diffuseColor = new BABYLON.Color3(0.2, 0.5, 1);
+    hand.material = handMat;
+           
+   
+            // ✨ تحديث موضع اليد أمام الكاميرا باستمرار
+    scene.onBeforeRenderObservable.add(() => {
+        const forward = camera.getDirection(BABYLON.Axis.Z).scale(2); // أمام الكاميرا
+        const right = camera.getDirection(BABYLON.Axis.X).scale(0.3); // انحراف بسيط لليمين
+        const up = new BABYLON.Vector3(0, -0.3, 0); // أسفل قليلاً
+
+        hand.position = camera.position.add(forward).add(right).add(up);
+        hand.rotation = camera.rotation; // نفس اتجاه الكاميرا
+    });
+    */
+            
+             // ✋ اليد الافتراضية
+    		//تم إخفاء اليد مؤقتا
+           /*
+            const hand = new BABYLON.SceneLoader.ImportMesh("", "models/", "2.obj", scene, function (meshes) {
+            var model1 = meshes[0];
+                
+           scene.onBeforeRenderObservable.add(() => {
+        const forward = camera.getDirection(BABYLON.Axis.Z).scale(2); // أمام الكاميرا
+        const right = camera.getDirection(BABYLON.Axis.X).scale(0.3); // انحراف بسيط لليمين
+        const up = new BABYLON.Vector3(0, -0.3, 0); // أسفل قليلاً
+
+        model1.position = camera.position.add(forward).add(right).add(up);
+         model1.scaling = new BABYLON.Vector3(0.3 , 0.3 , 0.3);
+        model1.rotation = camera.rotation; // نفس اتجاه الكاميرا
+    });
+              
+                    
+              });    
+           
+      
+          */
+           
+				
+    ///////////////////////////////
+          /*  
+            // Materials
+    var mat1 = new BABYLON.StandardMaterial('mat1', scene);
+    mat1.diffuseColor = new BABYLON.Color3(1, 0, 0);
+    
+    var mat2 = new BABYLON.StandardMaterial('mat2', scene);
+    mat2.diffuseColor = new BABYLON.Color3(0, 1, 0);
+
+
+    var sphere = BABYLON.MeshBuilder.CreateSphere("sphere1", {diameter: 2, segments: 16}, scene);
+    sphere.material = mat1;
+    sphere.position.y = 7;
+
+    var cube = BABYLON.MeshBuilder.CreateBox("cube", { size: 1, height: 3 }, scene);
+    cube.position = new BABYLON.Vector3(1, 7, 0);
+    cube.material = mat2;
+
+    //parameters - arrayOfMeshes, disposeSource, allow32BitsIndices, meshSubclass, subdivideWithSubMeshes, multiMultiMaterial
+    var mesh = BABYLON.Mesh.MergeMeshes([sphere, cube], true, true, undefined, false, true);
+    
+          */  
+            /////////////////////////////////
+   // تحميل OBJ
+            
+            //متغيرات اظهار واخفاء الكائنات
+            /*
+            let objMeshes = [];
+            */
+             let isVisible = false;
+            var objMeshest1101 = [];
+            var objMeshest1102 = [];
+            var objMeshest1103 = [];
+            var objMeshest1104 = [];
+            
+            
+            var objMeshest1201 = [];
+            var objMeshest1202 = [];
+            var objMeshest1203 = [];
+            /*
+            BABYLON.SceneLoader.ImportMesh(
+                "",
+                "models/",
+                "object1101.obj",
+                scene,
+                function (meshes) {
+                    objMeshes = meshes;
+
+                    // إخفاء النموذج عند التحميل
+                    meshes.forEach(m => m.setEnabled(false));
+
+                 
+                }
+            );
+            */
+            // زر الإظهار
+      /*
+            document.getElementById("showBtn2").addEventListener("click", () => {
+            objMeshes.forEach(m => m.setEnabled(true));
+        });  
+           
+        */    
+           
+         
+         // زر الإظهار / الإخفاء
+        document.getElementById("toggleBtn111").addEventListener("click", () => {
+            isVisible = !isVisible;
+		
+                //دالة أظهار الكائنات
+          /*
+          objMeshes.forEach(m => m.setEnabled(isVisible));
+          */
+			objMeshest1101.forEach(m => m.setEnabled(isVisible));
+            objMeshest1102.forEach(m => m.setEnabled(isVisible));    
+          	objMeshest1103.forEach(m => m.setEnabled(isVisible));
+            objMeshest1104.forEach(m => m.setEnabled(isVisible));
+                //تغيير ظهور واخفاء التجارب     
+            document.getElementById("toggleBtn111").innerText =
+                isVisible ? "إخفاء التجربة الأولى" : "إظهار التجربة الأولي";
+                
+        });
+       
+       /*
+            // تبديل الإظهار/الإخفاء
+    toggleBtn.addEventListener("click", () => {
+      const mesh = scene.getMeshByName("myBox");
+      if (!mesh) return;
+      mesh.isVisible = !mesh.isVisible;
+    });
+    */
+            /////////////////
+				//إنشاء مواد وأدوات الطاولات
+				
+				//إنشاء مواد وأدوات الطاولة رقم 1
+			    var Interaction11141a = false;	
+           //الطاولة رقم 1
+				//الأداة رقم 1
+			 var object1101 =   BABYLON.SceneLoader.ImportMesh("", "models/", "object1101.obj", scene, function (meshes) {
+           	 objMeshest1101 = meshes;
+          	var model1 = meshes[0];
+            model1.position = new BABYLON.Vector3(obj1101[0], obj1101[1] , obj1101[2]);
+            model1.scaling = new BABYLON.Vector3(obj1101[3] , obj1101[4] , obj1101[5]);
+            model1.rotation = new BABYLON.Vector3(obj1101[6] , obj1101[7], obj1101[8]);
+               // إخفاء النموذج عند التحميل
+                    meshes.forEach(m => m.setEnabled(false));   
+                     
+                  
+    	   
+        
+              });    
+            
+    
+            //الطاولة رقم 1
+				//الأداة رقم 2
+			
+              var object1102 =   BABYLON.SceneLoader.ImportMesh("", "models/", "object1102.obj", scene, function (meshes) {
+          	 objMeshest1102 = meshes;
+            model1 = meshes[0];
+            model1.position = new BABYLON.Vector3(obj1102[0], obj1102[1] , obj1102[2]);
+            model1.scaling = new BABYLON.Vector3(obj1102[3] , obj1102[4] , obj1102[5]);
+            model1.rotation = new BABYLON.Vector3(obj1102[6] , obj1102[7], obj1102[8]);
+              // إخفاء النموذج عند التحميل
+                    meshes.forEach(m => m.setEnabled(false));   
+                          
+         
+       
+     
+   
+              });    
+     
+            //الطاولة رقم 1
+				//الأداة رقم 3
+				
+             var object1103 =    BABYLON.SceneLoader.ImportMesh("", "models/", "object1103.obj", scene, function (meshes) {
+            objMeshest1103 = meshes;
+            model1 = meshes[0];
+            model1.position = new BABYLON.Vector3(obj1103[0], obj1103[1] , obj1103[2]);
+            model1.scaling = new BABYLON.Vector3(obj1103[3] , obj1103[4] , obj1103[5]);
+            model1.rotation = new BABYLON.Vector3(obj1103[6] , obj1103[7], obj1103[8]);
+             // إخفاء النموذج عند التحميل
+                    meshes.forEach(m => m.setEnabled(false));      
+              });    
+			
+            //الطاولة رقم 1
+				//الأداة رقم 4
+			
+             var object1104 =   BABYLON.SceneLoader.ImportMesh("", "models/", "object1104.obj", scene, function (meshes) {
+            objMeshest1104 = meshes;
+            model1 = meshes[0];
+            model1.position = new BABYLON.Vector3(obj1104[0], obj1104[1] , obj1104[2]);
+            model1.scaling = new BABYLON.Vector3(obj1104[3] , obj1104[4] , obj1104[5]);
+            model1.rotation = new BABYLON.Vector3(obj1104[6] , obj1104[7], obj1104[8]);
+            // إخفاء النموذج عند التحميل
+                    meshes.forEach(m => m.setEnabled(false));          
+              });    
+            
+            //الطاولة رقم 1
+				//الأداة رقم 5
+			
+            var object1105 =    BABYLON.SceneLoader.ImportMesh("", "models/", "object1105.obj", scene, function (meshes) {
+            model1 = meshes[0];
+            model1.position = new BABYLON.Vector3(obj1105[0], obj1105[1] , obj1105[2]);
+            model1.scaling = new BABYLON.Vector3(obj1105[3] , obj1105[4] , obj1105[5]);
+            model1.rotation = new BABYLON.Vector3(obj1105[6] , obj1105[7], obj1105[8]);
+            model1.isVisible = false;        
+              });    
+            
+            //الطاولة رقم 1
+				//الأداة رقم 6
+			
+             var object1106 =   BABYLON.SceneLoader.ImportMesh("", "models/", "object1106.obj", scene, function (meshes) {
+            model1 = meshes[0];
+            model1.position = new BABYLON.Vector3(obj1106[0], obj1106[1] , obj1106[2]);
+            model1.scaling = new BABYLON.Vector3(obj1106[3] , obj1106[4] , obj1106[5]);
+            model1.rotation = new BABYLON.Vector3(obj1106[6] , obj1106[7], obj1106[8]);
+            model1.isVisible = false;     
+              }); 
+            
+ /*           
+            // دوال التفاعل مع الأزرار
+    const showBtn = document.getElementById("showBtn");
+    const toggleBtn = document.getElementById("toggleBtn");
+
+    // إظهار الكائن (إذا أردت أن يظهر دائمًا عند الضغط)
+    showBtn.addEventListener("click", () => {
+      const mesh = scene.getMeshByName("myBox");
+      if (!mesh) return;
+      mesh.isVisible = true;
+      // لو تحب يمكن نقل الكاميرا للنقطة أو عمل تأثير مؤثر
+      // camera.setTarget(mesh.position); // لو احتجت تحريك الكاميرا
+    });
+
+    // تبديل الإظهار/الإخفاء
+    toggleBtn.addEventListener("click", () => {
+      const mesh = scene.getMeshByName("myBox");
+      if (!mesh) return;
+      mesh.isVisible = !mesh.isVisible;
+    });
+            
+    */        //الطاولة رقم 1
+				//الأداة رقم 7
+			
+             var object1107 =   BABYLON.SceneLoader.ImportMesh("", "models/", "object1107.obj", scene, function (meshes) {
+            model1 = meshes[0];
+            model1.position = new BABYLON.Vector3(obj1107[0], obj1107[1] , obj1107[2]);
+            model1.scaling = new BABYLON.Vector3(obj1107[3] , obj1107[4] , obj1107[5]);
+            model1.rotation = new BABYLON.Vector3(obj1107[6] , obj1107[7], obj1107[8]);
+            model1.isVisible = false;         
+              });    
+            
+            //الطاولة رقم 1
+				//الأداة رقم 8
+			
+            var object1108 =    BABYLON.SceneLoader.ImportMesh("", "models/", "object1108.obj", scene, function (meshes) {
+            model1 = meshes[0];
+            model1.position = new BABYLON.Vector3(obj1108[0], obj1108[1] , obj1108[2]);
+            model1.scaling = new BABYLON.Vector3(obj1108[3] , obj1108[4] , obj1108[5]);
+            model1.rotation = new BABYLON.Vector3(obj1108[6] , obj1108[7], obj1108[8]);
+            model1.isVisible = false;         
+              });    
+            
+            //الطاولة رقم 1
+				//الأداة رقم 9
+			
+             var object1109 =   BABYLON.SceneLoader.ImportMesh("", "models/", "object1109.obj", scene, function (meshes) {
+            model1 = meshes[0];
+            model1.position = new BABYLON.Vector3(obj1109[0], obj1109[1] , obj1109[2]);
+            model1.scaling = new BABYLON.Vector3(obj1109[3] , obj1109[4] , obj1109[5]);
+            model1.rotation = new BABYLON.Vector3(obj1109[6] , obj1109[7], obj1109[8]);
+            model1.isVisible = false;         
+              });    
+            
+            //الطاولة رقم 1
+				//الأداة رقم 10
+			
+             var object1110 =   BABYLON.SceneLoader.ImportMesh("", "models/", "object1110.obj", scene, function (meshes) {
+            model1 = meshes[0];
+            model1.position = new BABYLON.Vector3(obj1110[0], obj1110[1] , obj1110[2]);
+            model1.scaling = new BABYLON.Vector3(obj1110[3] , obj1110[4] , obj1110[5]);
+            model1.rotation = new BABYLON.Vector3(obj1101[6] , obj1110[7], obj1110[8]);
+            model1.isVisible = false;        
+              });    
+            
+            //الطاولة رقم 1
+				//الأداة رقم 11
+			
+             var object1111 =   BABYLON.SceneLoader.ImportMesh("", "models/", "object1111.obj", scene, function (meshes) {
+            model1 = meshes[0];
+            model1.position = new BABYLON.Vector3(obj1111[0], obj1111[1] , obj1111[2]);
+            model1.scaling = new BABYLON.Vector3(obj1111[3] , obj1111[4] , obj1111[5]);
+            model1.rotation = new BABYLON.Vector3(obj1111[6] , obj1111[7], obj1111[8]);
+            model1.isVisible = false;         
+              });    
+            
+            //الطاولة رقم 1
+				//الأداة رقم 12
+			
+            var object1112 =    BABYLON.SceneLoader.ImportMesh("", "models/", "object1112.obj", scene, function (meshes) {
+            model1 = meshes[0];
+            model1.position = new BABYLON.Vector3(obj1112[0], obj1112[1] , obj1112[2]);
+            model1.scaling = new BABYLON.Vector3(obj1112[3] , obj1112[4] , obj1112[5]);
+            model1.rotation = new BABYLON.Vector3(obj1112[6] , obj1112[7], obj1112[8]);
+            model1.isVisible = false;        
+              });    
+            
+            
+             //الطاولة رقم 2
+				//الأداة رقم 1
+			
+    	   var object1201 =      BABYLON.SceneLoader.ImportMesh("", "models/", "object1201.obj", scene, function (meshes) {
+             objMeshest1201 = meshes;
+             model1 = meshes[0];
+            model1.position = new BABYLON.Vector3(obj1201[0], obj1201[1] , obj1201[2]);
+            model1.scaling = new BABYLON.Vector3(obj1201[3] , obj1201[4] , obj1201[5]);
+            model1.rotation = new BABYLON.Vector3(obj1201[6] , obj1201[7], obj1201[8]);
+              
+                    
+              });    
+           
+      
+            //الطاولة رقم 2
+				//الأداة رقم 2
+			
+              var object1202 =   BABYLON.SceneLoader.ImportMesh("", "models/", "object1202.obj", scene, function (meshes) {
+            objMeshest1202 = meshes;
+              model1 = meshes[0];
+            model1.position = new BABYLON.Vector3(obj1202[0], obj1202[1] , obj1202[2]);
+            model1.scaling = new BABYLON.Vector3(obj1202[3] , obj1202[4] , obj1202[5]);
+            model1.rotation = new BABYLON.Vector3(obj1202[6] , obj1202[7], obj1202[8]);
+                
+       
+    
+    
+   
+              });    
+     
+            //الطاولة رقم 2
+				//الأداة رقم 3
+				
+             var object1203 =    BABYLON.SceneLoader.ImportMesh("", "models/", "object1203.obj", scene, function (meshes) {
+            objMeshest1203 = meshes;
+             model1 = meshes[0];
+            model1.position = new BABYLON.Vector3(obj1203[0], obj1203[1] , obj1203[2]);
+            model1.scaling = new BABYLON.Vector3(obj1203[3] , obj1203[4] , obj1203[5]);
+            model1.rotation = new BABYLON.Vector3(obj1203[6] , obj1203[7], obj1203[8]);
+                      
+              });    
+			
+            
+            
+            
+            //////////////////////
+            //سحب كائن على آخر واظهار ثالث
+            /*
+            //إنشاء الكائنات
+            const boxA = BABYLON.MeshBuilder.CreateBox("boxA", {}, scene);
+boxA.position.x = -2;
+
+const boxB = BABYLON.MeshBuilder.CreateBox("boxB", {}, scene);
+boxB.position.x = 2;
+
+const boxC = BABYLON.MeshBuilder.CreateSphere("boxC", {diameter: 1}, scene);
+boxC.position.y = 2;
+boxC.setEnabled(false); // مخفي في البداية
+            
+            //تفعيل السحب
+            const dragBehavior = new BABYLON.PointerDragBehavior({
+    dragPlaneNormal: new BABYLON.Vector3(0, 1, 0)
+});
+boxA.addBehavior(dragBehavior);
+            //كشف التصادم
+            scene.onBeforeRenderObservable.add(() => {
+    if (boxA.intersectsMesh(boxB, false)) {
+        boxC.setEnabled(true);   // إظهار الكائن الثالث
+    } else {
+        boxC.setEnabled(false);  // إخفاؤه عند الابتعاد
+    }
+});
+            
+       */     
+            ////////////////////////
+            //سجب كائن بليندر على آخر واظهار ثالث obj
+            //تحميل الملفات
+           // الكائن A (يتم سحبه)
+let objA;
+            BABYLON.SceneLoader.ImportMesh(
+    "", "models/", "object1202.obj", scene,
+    function (meshes) {
+
+        objA = BABYLON.Mesh.MergeMeshes(meshes, true);
+        objA.position.x = -2;
+
+        // تفعيل السحب بعد التحميل
+        const dragBehavior = new BABYLON.PointerDragBehavior({
+            dragPlaneNormal: new BABYLON.Vector3(0, 1, 0)
+        });
+
+        objA.addBehavior(dragBehavior);
+    }
+);
+            
+// الكائن B (الهدف)
+let objB;
+BABYLON.SceneLoader.ImportMesh(
+    "", "models/", "object1202.obj", scene,
+    function (meshes) {
+        objB = BABYLON.Mesh.MergeMeshes(meshes, true);
+        objB.position.x = 2;
+    }
+);
+
+// الكائن C (يظهر عند التصادم)
+let objC;
+BABYLON.SceneLoader.ImportMesh(
+    "", "models/", "object1203.obj", scene,
+    function (meshes) {
+        objC = BABYLON.Mesh.MergeMeshes(meshes, true);
+        objC.position.y = 2;
+        objC.setEnabled(false); // مخفي بالبداية
+    }
+);
+
+           
+          
+            
+            //كشف التصادم
+            scene.onBeforeRenderObservable.add(() => {
+    if (!objA || !objB || !objC) return;
+
+    if (objA.intersectsMesh(objB, true)) {
+        objC.setEnabled(true);
+    } else {
+        objC.setEnabled(false);
+    }
+});
+
+            
+            /*
+            //الكود التالي لا يعمل به مشكلة انظر الذكاء الاصطناعي لمحاولة الحل
+            
+            //اظهار الكائن الثالث مرة واحدة فقط
+            
+            let triggered = false;
+
+scene.onBeforeRenderObservable.add(() => {
+    if (!triggered && objA.intersectsMesh(objB, true)) {
+        objC.setEnabled(true);
+        triggered = true;
+    }
+});
+       */     
+            
+            ///////////////////////
+            //الطاولة رقم 2
+				//الأداة رقم 4
+			
+             var object1204 =   BABYLON.SceneLoader.ImportMesh("", "models/", "object1204.obj", scene, function (meshes) {
+            model1 = meshes[0];
+            model1.position = new BABYLON.Vector3(obj1204[0], obj1204[1] , obj1204[2]);
+            model1.scaling = new BABYLON.Vector3(obj1204[3] , obj1204[4] , obj1204[5]);
+            model1.rotation = new BABYLON.Vector3(obj1204[6] , obj1204[7], obj1204[8]);
+                    
+              });    
+            
+            //الطاولة رقم 2
+				//الأداة رقم 5
+			
+            var object1205 =    BABYLON.SceneLoader.ImportMesh("", "models/", "object1205.obj", scene, function (meshes) {
+            model1 = meshes[0];
+            model1.position = new BABYLON.Vector3(obj1205[0], obj1205[1] , obj1205[2]);
+            model1.scaling = new BABYLON.Vector3(obj1205[3] , obj1205[4] , obj1205[5]);
+            model1.rotation = new BABYLON.Vector3(obj1205[6] , obj1205[7], obj1205[8]);
+                    
+              });    
+            
+            //الطاولة رقم 2
+				//الأداة رقم 6
+			
+             var object1206 =   BABYLON.SceneLoader.ImportMesh("", "models/", "object1206.obj", scene, function (meshes) {
+            model1 = meshes[0];
+            model1.position = new BABYLON.Vector3(obj1206[0], obj1206[1] , obj1206[2]);
+            model1.scaling = new BABYLON.Vector3(obj1206[3] , obj1206[4] , obj1206[5]);
+            model1.rotation = new BABYLON.Vector3(obj1206[6] , obj1206[7], obj1206[8]);
+                    
+              });    
+            
+            //الطاولة رقم 2
+				//الأداة رقم 7
+			
+             var object1207 =   BABYLON.SceneLoader.ImportMesh("", "models/", "object1207.obj", scene, function (meshes) {
+            model1 = meshes[0];
+            model1.position = new BABYLON.Vector3(obj1207[0], obj1207[1] , obj1207[2]);
+            model1.scaling = new BABYLON.Vector3(obj1207[3] , obj1207[4] , obj1207[5]);
+            model1.rotation = new BABYLON.Vector3(obj1207[6] , obj1207[7], obj1207[8]);
+                    
+              });    
+            
+            //الطاولة رقم 2
+				//الأداة رقم 8
+			
+            var object1208 =    BABYLON.SceneLoader.ImportMesh("", "models/", "object1208.obj", scene, function (meshes) {
+            model1 = meshes[0];
+            model1.position = new BABYLON.Vector3(obj1208[0], obj1208[1] , obj1208[2]);
+            model1.scaling = new BABYLON.Vector3(obj1208[3] , obj1208[4] , obj1208[5]);
+            model1.rotation = new BABYLON.Vector3(obj1208[6] , obj1208[7], obj1208[8]);
+                    
+              });    
+            
+            //الطاولة رقم 2
+				//الأداة رقم 9
+			
+             var object1209 =   BABYLON.SceneLoader.ImportMesh("", "models/", "object1209.obj", scene, function (meshes) {
+            model1 = meshes[0];
+            model1.position = new BABYLON.Vector3(obj1209[0], obj1209[1] , obj1209[2]);
+            model1.scaling = new BABYLON.Vector3(obj1209[3] , obj1209[4] , obj1209[5]);
+            model1.rotation = new BABYLON.Vector3(obj1209[6] , obj1209[7], obj1209[8]);
+                    
+              });    
+            
+            //الطاولة رقم 2
+				//الأداة رقم 10
+			/*
+             var object1210 =   BABYLON.SceneLoader.ImportMesh("", "models/", "object1209.obj", scene, function (meshes) {
+            model1 = meshes[0];
+            model1.position = new BABYLON.Vector3(obj1210[0], obj1210[1] , obj1210[2]);
+            model1.scaling = new BABYLON.Vector3(obj1210[3] , obj1210[4] , obj1210[5]);
+            model1.rotation = new BABYLON.Vector3(obj1210[6] , obj1210[7], obj1210[8]);
+                    
+              });    
+            
+            //الطاولة رقم 2
+				//الأداة رقم 11
+			
+             var object1211 =   BABYLON.SceneLoader.ImportMesh("", "models/", "object1101.obj", scene, function (meshes) {
+            model1 = meshes[0];
+            model1.position = new BABYLON.Vector3(obj1211[0], obj1211[1] , obj1211[2]);
+            model1.scaling = new BABYLON.Vector3(obj1211[3] , obj1211[4] , obj1211[5]);
+            model1.rotation = new BABYLON.Vector3(obj1211[6] , obj1211[7], obj1211[8]);
+                    
+              });    
+            
+            //الطاولة رقم 2
+				//الأداة رقم 12
+			
+            var object1212 =    BABYLON.SceneLoader.ImportMesh("", "models/", "object1101.obj", scene, function (meshes) {
+            model1 = meshes[0];
+            model1.position = new BABYLON.Vector3(obj1212[0], obj1212[1] , obj1212[2]);
+            model1.scaling = new BABYLON.Vector3(obj1212[3] , obj1212[4] , obj1212[5]);
+            model1.rotation = new BABYLON.Vector3(obj1212[6] , obj1212[7], obj1212[8]);
+                    
+              });
+             
+            */
+            
+            
+             //الطاولة رقم 3
+				//الأداة رقم 1
+			
+    	   var object1301 =      BABYLON.SceneLoader.ImportMesh("", "models/", "object1301.obj", scene, function (meshes) {
+            var model1 = meshes[0];
+            model1.position = new BABYLON.Vector3(obj1301[0], obj1301[1] , obj1301[2]);
+            model1.scaling = new BABYLON.Vector3(obj1301[3] , obj1301[4] , obj1301[5]);
+            model1.rotation = new BABYLON.Vector3(obj1301[6] , obj1301[7], obj1301[8]);
+              
+                    
+              });    
+           
+      
+            //الطاولة رقم 3
+				//الأداة رقم 2
+			
+              var object1302 =   BABYLON.SceneLoader.ImportMesh("", "models/", "object1302.obj", scene, function (meshes) {
+          	model1 = meshes[0];
+            model1.position = new BABYLON.Vector3(obj1302[0], obj1302[1] , obj1302[2]);
+            model1.scaling = new BABYLON.Vector3(obj1302[3] , obj1302[4] , obj1302[5]);
+            model1.rotation = new BABYLON.Vector3(obj1302[6] , obj1302[7], obj1302[8]);
+                
+       
+    
+    
+   
+              });    
+     
+            //الطاولة رقم 3
+				//الأداة رقم 3
+				
+             var object1303 =    BABYLON.SceneLoader.ImportMesh("", "models/", "object1303.obj", scene, function (meshes) {
+            model1 = meshes[0];
+            model1.position = new BABYLON.Vector3(obj1303[0], obj1303[1] , obj1303[2]);
+            model1.scaling = new BABYLON.Vector3(obj1303[3] , obj1303[4] , obj1303[5]);
+            model1.rotation = new BABYLON.Vector3(obj1303[6] , obj1303[7], obj1303[8]);
+                    
+              });    
+			
+            //الطاولة رقم 3
+				//الأداة رقم 4
+			
+             var object1304 =   BABYLON.SceneLoader.ImportMesh("", "models/", "object1304.obj", scene, function (meshes) {
+            model1 = meshes[0];
+            model1.position = new BABYLON.Vector3(obj1304[0], obj1304[1] , obj1304[2]);
+            model1.scaling = new BABYLON.Vector3(obj1304[3] , obj1304[4] , obj1304[5]);
+            model1.rotation = new BABYLON.Vector3(obj1304[6] , obj1304[7], obj1304[8]);
+                    
+              });    
+            
+            //الطاولة رقم 3
+				//الأداة رقم 5
+			
+            var object1305 =    BABYLON.SceneLoader.ImportMesh("", "models/", "object1305.obj", scene, function (meshes) {
+            model1 = meshes[0];
+            model1.position = new BABYLON.Vector3(obj1305[0], obj1305[1] , obj1305[2]);
+            model1.scaling = new BABYLON.Vector3(obj1305[3] , obj1305[4] , obj1305[5]);
+            model1.rotation = new BABYLON.Vector3(obj1305[6] , obj1305[7], obj1305[8]);
+                    
+              });    
+            
+            //الطاولة رقم 3
+				//الأداة رقم 6
+			
+             var object1306 =   BABYLON.SceneLoader.ImportMesh("", "models/", "object1306.obj", scene, function (meshes) {
+            model1 = meshes[0];
+            model1.position = new BABYLON.Vector3(obj1306[0], obj1306[1] , obj1306[2]);
+            model1.scaling = new BABYLON.Vector3(obj1306[3] , obj1306[4] , obj1306[5]);
+            model1.rotation = new BABYLON.Vector3(obj1306[6] , obj1306[7], obj1306[8]);
+                    
+              });    
+            
+            //الطاولة رقم 3
+				//الأداة رقم 7
+			/*
+             var object1307 =   BABYLON.SceneLoader.ImportMesh("", "models/", "object1101.obj", scene, function (meshes) {
+            model1 = meshes[0];
+            model1.position = new BABYLON.Vector3(obj1307[0], obj1307[1] , obj1307[2]);
+            model1.scaling = new BABYLON.Vector3(obj1307[3] , obj1307[4] , obj1307[5]);
+            model1.rotation = new BABYLON.Vector3(obj1307[6] , obj1307[7], obj1307[8]);
+                    
+              });    
+            
+            //الطاولة رقم 3
+				//الأداة رقم 8
+			
+            var object1308 =    BABYLON.SceneLoader.ImportMesh("", "models/", "object1101.obj", scene, function (meshes) {
+            model1 = meshes[0];
+            model1.position = new BABYLON.Vector3(obj1308[0], obj1308[1] , obj1308[2]);
+            model1.scaling = new BABYLON.Vector3(obj1308[3] , obj1308[4] , obj1308[5]);
+            model1.rotation = new BABYLON.Vector3(obj1308[6] , obj1308[7], obj1308[8]);
+                    
+              });    
+            
+            //الطاولة رقم 3
+				//الأداة رقم 9
+			
+             var object1309 =   BABYLON.SceneLoader.ImportMesh("", "models/", "object1101.obj", scene, function (meshes) {
+            model1 = meshes[0];
+            model1.position = new BABYLON.Vector3(obj1309[0], obj1309[1] , obj1309[2]);
+            model1.scaling = new BABYLON.Vector3(obj1309[3] , obj1309[4] , obj1309[5]);
+            model1.rotation = new BABYLON.Vector3(obj1309[6] , obj1309[7], obj1309[8]);
+                    
+              });    
+            
+            //الطاولة رقم 3
+				//الأداة رقم 10
+			
+             var object1310 =   BABYLON.SceneLoader.ImportMesh("", "models/", "object1101.obj", scene, function (meshes) {
+            model1 = meshes[0];
+            model1.position = new BABYLON.Vector3(obj1310[0], obj1310[1] , obj1310[2]);
+            model1.scaling = new BABYLON.Vector3(obj1310[3] , obj1310[4] , obj1310[5]);
+            model1.rotation = new BABYLON.Vector3(obj1310[6] , obj1310[7], obj1310[8]);
+                    
+              });    
+            
+            //الطاولة رقم 3
+				//الأداة رقم 11
+			
+             var object1311 =   BABYLON.SceneLoader.ImportMesh("", "models/", "object1101.obj", scene, function (meshes) {
+            model1 = meshes[0];
+            model1.position = new BABYLON.Vector3(obj1311[0], obj1311[1] , obj1311[2]);
+            model1.scaling = new BABYLON.Vector3(obj1311[3] , obj1311[4] , obj1311[5]);
+            model1.rotation = new BABYLON.Vector3(obj1311[6] , obj1311[7], obj1311[8]);
+                    
+              });    
+            
+            //الطاولة رقم 3
+				//الأداة رقم 12
+			
+            var object1312 =    BABYLON.SceneLoader.ImportMesh("", "models/", "object1101.obj", scene, function (meshes) {
+            model1 = meshes[0];
+            model1.position = new BABYLON.Vector3(obj1312[0], obj1312[1] , obj1312[2]);
+            model1.scaling = new BABYLON.Vector3(obj1312[3] , obj1312[4] , obj1312[5]);
+            model1.rotation = new BABYLON.Vector3(obj1312[6] , obj1312[7], obj1312[8]);
+                    
+              });    
+            
+            */
+             //الطاولة رقم 4
+				//الأداة رقم 1
+			
+    	   var object1401 =      BABYLON.SceneLoader.ImportMesh("", "models/", "object1401.obj", scene, function (meshes) {
+            model1 = meshes[0];
+            model1.position = new BABYLON.Vector3(obj1401[0], obj1401[1] , obj1401[2]);
+            model1.scaling = new BABYLON.Vector3(obj1401[3] , obj1401[4] , obj1401[5]);
+            model1.rotation = new BABYLON.Vector3(obj1401[6] , obj1401[7], obj1401[8]);
+              
+                    
+              });    
+           
+      
+            //الطاولة رقم 4
+				//الأداة رقم 2
+			
+              var object1402 =   BABYLON.SceneLoader.ImportMesh("", "models/", "object1402.obj", scene, function (meshes) {
+            model1 = meshes[0];
+            model1.position = new BABYLON.Vector3(obj1402[0], obj1402[1] , obj1402[2]);
+            model1.scaling = new BABYLON.Vector3(obj1402[3] , obj1402[4] , obj1402[5]);
+            model1.rotation = new BABYLON.Vector3(obj1402[6] , obj1402[7], obj1402[8]);
+                
+       
+    
+    
+   
+              });    
+     
+            //الطاولة رقم 4
+				//الأداة رقم 3
+				
+             var object1403 =    BABYLON.SceneLoader.ImportMesh("", "models/", "object1403.obj", scene, function (meshes) {
+            model1 = meshes[0];
+            model1.position = new BABYLON.Vector3(obj1403[0], obj1403[1] , obj1403[2]);
+            model1.scaling = new BABYLON.Vector3(obj1403[3] , obj1403[4] , obj1403[5]);
+            model1.rotation = new BABYLON.Vector3(obj1403[6] , obj1403[7], obj1403[8]);
+                    
+              });    
+			
+            //الطاولة رقم 4
+				//الأداة رقم 4
+			
+             var object1404 =   BABYLON.SceneLoader.ImportMesh("", "models/", "object1404.obj", scene, function (meshes) {
+            model1 = meshes[0];
+            model1.position = new BABYLON.Vector3(obj1404[0], obj1404[1] , obj1404[2]);
+            model1.scaling = new BABYLON.Vector3(obj1404[3] , obj1404[4] , obj1404[5]);
+            model1.rotation = new BABYLON.Vector3(obj1404[6] , obj1404[7], obj1404[8]);
+                    
+              });    
+            
+            //الطاولة رقم 4
+				//الأداة رقم 5
+			
+            var object1405 =    BABYLON.SceneLoader.ImportMesh("", "models/", "object1405.obj", scene, function (meshes) {
+            model1 = meshes[0];
+            model1.position = new BABYLON.Vector3(obj1405[0], obj1405[1] , obj1405[2]);
+            model1.scaling = new BABYLON.Vector3(obj1405[3] , obj1405[4] , obj1405[5]);
+            model1.rotation = new BABYLON.Vector3(obj1405[6] , obj1405[7], obj1405[8]);
+                    
+              });    
+            
+            //الطاولة رقم 4
+				//الأداة رقم 6
+			/*
+             var object1406 =   BABYLON.SceneLoader.ImportMesh("", "models/", "object1101.obj", scene, function (meshes) {
+            model1 = meshes[0];
+            model1.position = new BABYLON.Vector3(obj1406[0], obj1406[1] , obj1406[2]);
+            model1.scaling = new BABYLON.Vector3(obj1406[3] , obj1406[4] , obj1406[5]);
+            model1.rotation = new BABYLON.Vector3(obj1406[6] , obj1406[7], obj1406[8]);
+                    
+              });    
+            
+            //الطاولة رقم 4
+				//الأداة رقم 7
+			
+             var object1407 =   BABYLON.SceneLoader.ImportMesh("", "models/", "object1101.obj", scene, function (meshes) {
+            model1 = meshes[0];
+            model1.position = new BABYLON.Vector3(obj1407[0], obj1407[1] , obj1407[2]);
+            model1.scaling = new BABYLON.Vector3(obj1407[3] , obj1407[4] , obj1407[5]);
+            model1.rotation = new BABYLON.Vector3(obj1407[6] , obj1407[7], obj1407[8]);
+                    
+              });    
+            
+            //الطاولة رقم 4
+				//الأداة رقم 8
+			
+            var object1408 =    BABYLON.SceneLoader.ImportMesh("", "models/", "object1101.obj", scene, function (meshes) {
+            model1 = meshes[0];
+            model1.position = new BABYLON.Vector3(obj1408[0], obj1408[1] , obj1408[2]);
+            model1.scaling = new BABYLON.Vector3(obj1408[3] , obj1408[4] , obj1408[5]);
+            model1.rotation = new BABYLON.Vector3(obj1408[6] , obj1408[7], obj1408[8]);
+                    
+              });    
+            
+            //الطاولة رقم 4
+				//الأداة رقم 9
+			
+             var object1409 =   BABYLON.SceneLoader.ImportMesh("", "models/", "object1101.obj", scene, function (meshes) {
+            model1 = meshes[0];
+            model1.position = new BABYLON.Vector3(obj1409[0], obj1409[1] , obj1409[2]);
+            model1.scaling = new BABYLON.Vector3(obj1409[3] , obj1409[4] , obj1409[5]);
+            model1.rotation = new BABYLON.Vector3(obj1409[6] , obj1409[7], obj1409[8]);
+                    
+              });    
+            
+            //الطاولة رقم 4
+				//الأداة رقم 10
+			
+             var object1410 =   BABYLON.SceneLoader.ImportMesh("", "models/", "object1101.obj", scene, function (meshes) {
+            model1 = meshes[0];
+            model1.position = new BABYLON.Vector3(obj1410[0], obj1410[1] , obj1410[2]);
+            model1.scaling = new BABYLON.Vector3(obj1410[3] , obj1410[4] , obj1410[5]);
+            model1.rotation = new BABYLON.Vector3(obj1410[6] , obj1410[7], obj1410[8]);
+                    
+              });    
+            
+            //الطاولة رقم 4
+				//الأداة رقم 11
+			
+             var object1411 =   BABYLON.SceneLoader.ImportMesh("", "models/", "object1101.obj", scene, function (meshes) {
+            model1 = meshes[0];
+            model1.position = new BABYLON.Vector3(obj1411[0], obj1411[1] , obj1411[2]);
+            model1.scaling = new BABYLON.Vector3(obj1411[3] , obj1411[4] , obj1411[5]);
+            model1.rotation = new BABYLON.Vector3(obj1411[6] , obj1411[7], obj1411[8]);
+                    
+              });    
+            
+            //الطاولة رقم 4
+				//الأداة رقم 12
+			
+            var object1412 =    BABYLON.SceneLoader.ImportMesh("", "models/", "object1101.obj", scene, function (meshes) {
+            model1 = meshes[0];
+            model1.position = new BABYLON.Vector3(obj1412[0], obj1412[1] , obj1412[2]);
+            model1.scaling = new BABYLON.Vector3(obj1412[3] , obj1412[4] , obj1412[5]);
+            model1.rotation = new BABYLON.Vector3(obj1412[6] , obj1412[7], obj1412[8]);
+                    
+              });
+              
+             */
+            /////////
+            
+           
+           
+             // اختيار الكائن عند النقر
+          // طبقة التحديد
+        hl = new BABYLON.HighlightLayer("hl1", scene);
+      
+            scene.onPointerObservable.add(function (pointerInfo) {
+            if (pointerInfo.pickInfo.hit && pointerInfo.pickInfo.pickedMesh) {
+                if (selectedObject) hl.removeMesh(selectedObject); // إزالة التحديد السابق
+                selectedObject = pointerInfo.pickInfo.pickedMesh;
+                hl.addMesh(selectedObject, BABYLON.Color3.Yellow()); // تلوين الكائن المحدد
+           
+                    
+            
+            }
+        }, BABYLON.PointerEventTypes.POINTERPICK);
+            
+            
+            
+        
+           // إنشاء gizmoManager
+            /*
+                const gizmoManager2 = new BABYLON.GizmoManager(scene);
+                gizmoManager2.positionGizmoEnabled = true;
+                gizmoManager2.rotationGizmoEnabled = true;
+
+                // عند الضغط على مجسم
+                scene.onPointerObservable.add((pointerInfo) => {
+                    if (pointerInfo.type === BABYLON.PointerEventTypes.POINTERPICK) {
+                        const pickResult = pointerInfo.pickInfo;
+
+                        if (pickResult.hit && pickResult.pickedMesh) {
+                            // أولاً: إزالة التحديد السابق
+                            gizmoManager2.attachToMesh(null);
+
+                            // ثانياً: إرفاق gizmo بالمجسم الجديد
+                            gizmoManager2.attachToMesh(pickResult.pickedMesh);
+                        }
+                    }
+                });
+
+            */
+          //////////////////////////////////////////////////
+                
+                
+                //قسم سقف وجدران المعمل
+				//إنشاء السقف
+				var box1 = new BABYLON.MeshBuilder.CreateBox("box2", { width:61, height: 0.2, depth:71 }, scene);
+				box1.position.x=0;
+				box1.position.y=30;
+				box1.position.z=0;
+				var material = new BABYLON.StandardMaterial("material", scene);
+				material.diffuseTexture = new BABYLON.Texture( "img/18.jpg", scene);
+				material.diffuseTexture.hasAlpha = true;
+				material.backFaceCulling = false;
+				box1.material = material;
+                box1.isPickable = false;
+            
+                //إنشاء جدران الجانب الشمالي
+				var box1 = new BABYLON.MeshBuilder.CreateBox("box3", { width: 60, height: 0.2, depth: 30 }, scene);
+				box1.position.x=0;
+				box1.position.y=15;
+				box1.position.z=35;
+				box1.rotation.x=3.14/2;
+				var material = new BABYLON.StandardMaterial("material", scene);
+				material.diffuseTexture = new BABYLON.Texture( "img/52.jpg", scene);
+				material.diffuseTexture.hasAlpha = true;
+				material.backFaceCulling = false;
+				box1.material = material;
+				box1.isPickable = false;
+            
+				//إنشاء جدران الجانب الغربي
+				var box1 = new BABYLON.MeshBuilder.CreateBox("box51", { width:0.2, height: 70, depth:30 }, scene);
+				box1.position.x=-30;
+				box1.position.y=15;
+				box1.position.z=0;
+				box1.rotation.x=3.14/2;
+				var material = new BABYLON.StandardMaterial("material", scene);
+				material.diffuseTexture = new BABYLON.Texture( "img/52.jpg", scene);
+				material.diffuseTexture.hasAlpha = true;
+				material.backFaceCulling = false;
+				box1.material = material;
+				box1.isPickable = false;
+            
+				
+				//إنشاء جدران الجانب الجنوبي الغربي
+				var taha2 = new BABYLON.MeshBuilder.CreateBox("wall2", { width: 20, height: 30, depth: 2 }, scene);
+				taha2.position.x=-20;
+				taha2.position.y=15;
+				taha2.position.z=-34;
+				var material = new BABYLON.StandardMaterial("material", scene);
+				material.diffuseTexture = new BABYLON.Texture( "img/52.jpg", scene);
+				material.diffuseTexture.hasAlpha = true;
+				material.backFaceCulling = false;
+				taha2.material = material;
+				taha2.isPickable = false;
+            	taha2.checkCollisions = true; // مهم جداً ليصبح جزءًا من نظام التصادم
+				
+            
+            
+            //إنشاء جدران الجانب الجنوبي العلوي
+				var box1 = new BABYLON.MeshBuilder.CreateBox("box2", { width: 20, height: 10, depth: 2 }, scene);
+				box1.position.x=0;
+				box1.position.y=25;
+				box1.position.z=-34;
+				var material = new BABYLON.StandardMaterial("material", scene);
+				material.diffuseTexture = new BABYLON.Texture( "img/52.jpg", scene);
+				material.diffuseTexture.hasAlpha = true;
+				material.backFaceCulling = false;
+				box1.material = material;
+				box1.isPickable = false;
+            
+				//إنشاء جدران الجانب الجنوبي الشرقي
+				var taha1 = new BABYLON.MeshBuilder.CreateBox("wall1", { width: 20, height: 30, depth: 2 }, scene);
+				taha1.position.x=20;
+				taha1.position.y=15;
+				taha1.position.z=-34;
+				var material = new BABYLON.StandardMaterial("material", scene);
+				material.diffuseTexture = new BABYLON.Texture( "img/52.jpg", scene);
+				material.diffuseTexture.hasAlpha = true;
+				material.backFaceCulling = false;
+				taha1.material = material;
+				taha1.isPickable = false;
+           		taha1.checkCollisions = true; // مهم جداً ليصبح جزءًا من نظام التصادم
+            
+				//إنشاء جدران الجانب الشرقي
+				var box1 = new BABYLON.MeshBuilder.CreateBox("box3", { width: 0.2, height: 70, depth: 30 }, scene);
+				box1.position.x=30;
+				box1.position.y=15;
+				box1.position.z=0;
+				box1.rotation.x=3.14/2;
+				var material = new BABYLON.StandardMaterial("material", scene);
+				material.diffuseTexture = new BABYLON.Texture( "img/52.jpg", scene);
+				material.diffuseTexture.hasAlpha = true;
+				material.backFaceCulling = false;
+				box1.material = material;
+				box1.isPickable = false;
+            
+				
+            
+            	/////////
+				//إنشاء الصالة
+				
+				//إنشاء سقف الصالة
+				var box1 = new BABYLON.MeshBuilder.CreateBox("box2", { width:61, height: 0.2, depth:71 }, scene);
+				box1.position.x=0;
+				box1.position.y=30;
+				box1.position.z=-70;
+				var material = new BABYLON.StandardMaterial("material", scene);
+				material.diffuseTexture = new BABYLON.Texture( "img/18.jpg", scene);
+				material.diffuseTexture.hasAlpha = true;
+				material.backFaceCulling = false;
+				box1.material = material;
+				box1.isPickable = false;
+            
+				
+				//إنشاء الجانب الغربي للصالة
+				var box1 = new BABYLON.MeshBuilder.CreateBox("box51", { width:0.2, height: 70, depth:30 }, scene);
+				box1.position.x=-30;
+				box1.position.y=15;
+				box1.position.z=-70;
+				box1.rotation.x=3.14/2;
+				var material = new BABYLON.StandardMaterial("material", scene);
+				material.diffuseTexture = new BABYLON.Texture( "img/52.jpg", scene);
+				material.diffuseTexture.hasAlpha = true;
+				material.backFaceCulling = false;
+				box1.material = material;
+				box1.isPickable = false;
+            
+				//إنشاء الجانب الجنوبي للصالة
+				var box1 = new BABYLON.MeshBuilder.CreateBox("box2", { width: 60, height: 30, depth: 0.2 }, scene);
+				box1.position.x=0;
+				box1.position.y=15;
+				box1.position.z=-105;
+				var material = new BABYLON.StandardMaterial("material", scene);
+				material.diffuseTexture = new BABYLON.Texture( "img/52.jpg", scene);
+				material.diffuseTexture.hasAlpha = true;
+				material.backFaceCulling = false;
+				box1.material = material;
+				box1.isPickable = false;
+            
+				
+				//إنشاء الجانب الشرقي للصالة
+				var box1 = new BABYLON.MeshBuilder.CreateBox("box3", { width: 0.2, height: 70, depth: 30 }, scene);
+				box1.position.x=30;
+				box1.position.y=15;
+				box1.position.z=-70;
+				box1.rotation.x=3.14/2;
+				var material = new BABYLON.StandardMaterial("material", scene);
+				material.diffuseTexture = new BABYLON.Texture( "img/52.jpg", scene);
+				material.diffuseTexture.hasAlpha = true;
+				material.backFaceCulling = false;
+				box1.material = material;
+				box1.isPickable = false;
+            
+				
+				///////////////
+				// قسم شبابيك المعمل والصالة
+				
+
+				//إنشاء شباك الجانب الشرقي للمعمل
+				var box51 = BABYLON.MeshBuilder.CreateBox("box51", { width:0.2, height: 15, depth:10 }, scene);
+				box51.position.x=29.8;
+				box51.position.y=17;
+				box51.position.z=0;
+				box51.rotation.x=-3.14/2;
+				var material = new BABYLON.StandardMaterial("material", scene);
+				material.diffuseTexture = new BABYLON.Texture( "img/53.jpg", scene);
+				material.diffuseTexture.hasAlpha = true;
+				material.backFaceCulling = false;
+				box51.material = material;
+				box51.isPickable = false;
+            
+				//إنشاء شباك الجانب الغربي للمعمل
+				var box1 = new BABYLON.MeshBuilder.CreateBox("box51", { width:0.2, height: 15, depth:10 }, scene);
+				box1.position.x=-29.8;
+				box1.position.y=17;
+				box1.position.z=0;
+				box1.rotation.x=3.14/2;
+				var material = new BABYLON.StandardMaterial("material", scene);
+				material.diffuseTexture = new BABYLON.Texture( "img/53.jpg", scene);
+				material.diffuseTexture.hasAlpha = true;
+				material.backFaceCulling = false;
+				box1.material = material;
+				box1.isPickable = false;
+            
+				//إنشاء شباك الجانب الشرقي للصالة
+				var box51 = BABYLON.MeshBuilder.CreateBox("box51", { width:0.2, height: 15, depth:10 }, scene);
+				box51.position.x=29.8;
+				box51.position.y=17;
+				box51.position.z=-70;
+				box51.rotation.x=-3.14/2;
+				var material = new BABYLON.StandardMaterial("material", scene);
+				material.diffuseTexture = new BABYLON.Texture( "img/53.jpg", scene);
+				material.diffuseTexture.hasAlpha = true;
+				material.backFaceCulling = false;
+				box51.material = material;
+				box51.isPickable = false;
+            
+				//إنشاء شباك الجانب الغربي للصالة
+				var box1 = new BABYLON.MeshBuilder.CreateBox("box51", { width:0.2, height: 15, depth:10 }, scene);
+				box1.position.x=-29.8;
+				box1.position.y=17;
+				box1.position.z=-70;
+				box1.rotation.x=3.14/2;
+				var material = new BABYLON.StandardMaterial("material", scene);
+				material.diffuseTexture = new BABYLON.Texture( "img/53.jpg", scene);
+				material.diffuseTexture.hasAlpha = true;
+				material.backFaceCulling = false;
+				box1.material = material;
+				box1.isPickable = false;
+
+				
+				////////////
+				//إنشاء باب الصالة
+				var box1 = new BABYLON.MeshBuilder.CreateBox("box51", { width: 0.2, height: 15, depth:15 }, scene);
+				box1.position.x=0;
+				box1.position.y=7.5;
+				box1.position.z=-104.5;
+				box1.rotation.x=-3.14/2;
+				box1.rotation.y=3.14/2;
+				var material = new BABYLON.StandardMaterial("material", scene);
+				material.diffuseTexture = new BABYLON.Texture( "img/51.jpg", scene);
+				material.diffuseTexture.hasAlpha = true;
+				material.backFaceCulling = false;
+				box1.material = material;
+				box1.isPickable = false;
+            
+                
+                /////////
+				//إنشاء الأعمدة
+				//إنشاء عمود شمال شرق
+				var box1 = new BABYLON.MeshBuilder.CreateCylinder("cylinder", {height:30,diameterTop:8, diameterBottom:8}, scene);
+				box1.position.x=30;
+				box1.position.y=15;
+				box1.position.z=35;
+				var materialBox = new BABYLON.StandardMaterial("texture1", scene);
+				materialBox.diffuseColor =  new BABYLON.Color3(0.71, 0.55, 0.22, 0.67);
+				box1.material = materialBox;
+				box1.isPickable = false;
+				
+				//إنشاء عمود شمال غرب
+				var box1 = new BABYLON.MeshBuilder.CreateCylinder("cylinder", {height:30,diameterTop:8, diameterBottom:8}, scene);
+				box1.position.x=-30;
+				box1.position.y=15;
+				box1.position.z=35;
+				var materialBox = new BABYLON.StandardMaterial("texture1", scene);
+				materialBox.diffuseColor =  new BABYLON.Color3(0.71, 0.55, 0.22, 0.67);
+				box1.material = materialBox;
+				box1.isPickable = false;
+            
+				
+				//إنشاء عمود جنوب شرق
+				var box1 = new BABYLON.MeshBuilder.CreateCylinder("cylinder", {height:30,diameterTop:8, diameterBottom:8}, scene);
+				box1.position.x=30;
+				box1.position.y=15;
+				box1.position.z=-35;
+				var materialBox = new BABYLON.StandardMaterial("texture1", scene);
+				materialBox.diffuseColor =  new BABYLON.Color3(0.71, 0.55, 0.22, 0.67);
+				box1.material = materialBox;
+				box1.isPickable = false;
+            
+				//إنشاء عمود جنوب غرب
+				var box1 = new BABYLON.MeshBuilder.CreateCylinder("cylinder", {height:30,diameterTop:8, diameterBottom:8}, scene);
+				box1.position.x=-30;
+				box1.position.y=15;
+				box1.position.z=-35;
+				var materialBox = new BABYLON.StandardMaterial("texture1", scene);
+				materialBox.diffuseColor =  new BABYLON.Color3(0.71, 0.55, 0.22, 0.67);
+				box1.material = materialBox;
+				box1.isPickable = false;
+            
+				//إنشاء عمود الصالة جنوب شرق
+				var box1 = new BABYLON.MeshBuilder.CreateCylinder("cylinder", {height:30,diameterTop:8, diameterBottom:8}, scene);
+				box1.position.x=30;
+				box1.position.y=15;
+				box1.position.z=-105;
+				var materialBox = new BABYLON.StandardMaterial("texture1", scene);
+				materialBox.diffuseColor =  new BABYLON.Color3(0.71, 0.55, 0.22, 0.67);
+				box1.material = materialBox;
+				box1.isPickable = false;
+            
+				//إنشاء عمود الصالة جنوب غرب
+				var box1 = new BABYLON.MeshBuilder.CreateCylinder("cylinder", {height:30,diameterTop:8, diameterBottom:8}, scene);
+				box1.position.x=-30;
+				box1.position.y=15;
+				box1.position.z=-105;
+				var materialBox = new BABYLON.StandardMaterial("texture1", scene);
+				materialBox.diffuseColor =  new BABYLON.Color3(0.71, 0.55, 0.22, 0.67);
+				box1.material = materialBox;
+				box1.isPickable = false;
+            
+				/////////
+				//إنشاء الطاولات
+				
+          
+				//الطاولة رقم 1
+				var box1 = new BABYLON.MeshBuilder.CreateBox("box2", { width:10, height: 1, depth:5 }, scene);
+				box1.position.x=10;
+				box1.position.y=4.5;
+				box1.position.z=-12.5;
+          
+				var materialBox = new BABYLON.StandardMaterial("texture1", scene);
+             
+				materialBox.diffuseColor =  new BABYLON.Color3(0.41, 0.21, 0.21, 0.88);
+               
+				box1.material = materialBox;
+          
+				box1.isPickable = false;
+            
+				//الطاولة رقم 1
+				//الدرج الأيمن
+				var box1 = new BABYLON.MeshBuilder.CreateBox("box2", { width:3, height: 4, depth:5 }, scene);
+				box1.position.x=13.5;
+				box1.position.y=2;
+				box1.position.z=-12.5;
+				var materialBox = new BABYLON.StandardMaterial("texture1", scene);
+            /*
+				materialBox.diffuseColor =  new BABYLON.Color3(0.81, 0.19, 0.53, 0.9);
+                */
+				box1.material = materialBox;
+				box1.isPickable = false;
+            
+				//الطاولة رقم 1
+				//الجانب الأيسر
+				var box1 = new BABYLON.MeshBuilder.CreateBox("box2", { width:1, height: 4, depth:5 }, scene);
+				box1.position.x=5.5;
+				box1.position.y=2;
+				box1.position.z=-12.5;
+				var materialBox = new BABYLON.StandardMaterial("texture1", scene);
+            /*
+				materialBox.diffuseColor =  new BABYLON.Color3(0.81, 0.19, 0.53, 0.9);
+                */
+				box1.material = materialBox;
+				box1.isPickable = false;
+            				
+				
+				
+				//الطاولة رقم 2
+				var box1 = new BABYLON.MeshBuilder.CreateBox("box2", { width:10, height: 1, depth:5 }, scene);
+				box1.position.x=-10;
+				box1.position.y=4.5;
+				box1.position.z=-12.5;
+				var materialBox = new BABYLON.StandardMaterial("texture1", scene);
+				materialBox.diffuseColor =  new BABYLON.Color3(0.41, 0.21, 0.21, 0.88);
+				box1.material = materialBox;
+				box1.isPickable = false;
+            
+				//الطاولة رقم 2
+				//الدرج الأيمن
+				var box1 = new BABYLON.MeshBuilder.CreateBox("box2", { width:3, height: 4, depth:5 }, scene);
+				box1.position.x=-6.5;
+				box1.position.y=2;
+				box1.position.z=-12.5;
+				var materialBox = new BABYLON.StandardMaterial("texture1", scene);
+				
+				box1.material = materialBox;
+				box1.isPickable = false;
+            
+				//الطاولة رقم 2
+				//الجانب الأيسر
+				var box1 = new BABYLON.MeshBuilder.CreateBox("box2", { width:1, height: 4, depth:5 }, scene);
+				box1.position.x=-14.5;
+				box1.position.y=2;
+				box1.position.z=-12.5;
+				var materialBox = new BABYLON.StandardMaterial("texture1", scene);
+				
+				box1.material = materialBox;
+				box1.isPickable = false;
+				
+				
+				//الطاولة رقم 3
+				var box1 = new BABYLON.MeshBuilder.CreateBox("box2", { width:10, height: 1, depth:5 }, scene);
+				box1.position.x=10;
+				box1.position.y=4.5;
+				box1.position.z=12.5;
+				var materialBox = new BABYLON.StandardMaterial("texture1", scene);
+				materialBox.diffuseColor =  new BABYLON.Color3(0.41, 0.21, 0.21, 0.88);
+				box1.material = materialBox;
+				box1.isPickable = false;
+            
+				//الطاولة رقم 3
+				//الدرج الأيمن
+				var box1 = new BABYLON.MeshBuilder.CreateBox("box2", { width:3, height: 4, depth:5 }, scene);
+				box1.position.x=13.5;
+				box1.position.y=2;
+				box1.position.z=12.5;
+				var materialBox = new BABYLON.StandardMaterial("texture1", scene);
+				
+				box1.material = materialBox;
+				box1.isPickable = false;
+            
+				//الطاولة رقم 3
+				//الجانب الأيسر
+				var box1 = new BABYLON.MeshBuilder.CreateBox("box2", { width:1, height: 4, depth:5 }, scene);
+				box1.position.x=5.5;
+				box1.position.y=2;
+				box1.position.z=12.5;
+				var materialBox = new BABYLON.StandardMaterial("texture1", scene);
+			
+				box1.material = materialBox;
+				box1.isPickable = false;
+				
+				
+				//الطاولة رقم 4
+				var box1 = new BABYLON.MeshBuilder.CreateBox("box2", { width:10, height: 1, depth:5 }, scene);
+				box1.position.x=-10;
+				box1.position.y=4.5;
+				box1.position.z=12.5;
+				var materialBox = new BABYLON.StandardMaterial("texture1", scene);
+				materialBox.diffuseColor =  new BABYLON.Color3(0.41, 0.21, 0.21, 0.88);
+				box1.material = materialBox;
+				box1.isPickable = false;
+            
+				//الطاولة رقم 4
+				//الدرج الأيمن
+				var box1 = new BABYLON.MeshBuilder.CreateBox("box2", { width:3, height: 4, depth:5 }, scene);
+				box1.position.x=-6.5;
+				box1.position.y=2;
+				box1.position.z=12.5;
+				var materialBox = new BABYLON.StandardMaterial("texture1", scene);
+				
+				box1.material = materialBox;
+				box1.isPickable = false;
+            
+				//الطاولة رقم 4
+				//الجانب الأيسر
+				var box1 = new BABYLON.MeshBuilder.CreateBox("box2", { width:1, height: 4, depth:5 }, scene);
+				box1.position.x=-14.5;
+				box1.position.y=2;
+				box1.position.z=12.5;
+				var materialBox = new BABYLON.StandardMaterial("texture1", scene);
+				
+				box1.material = materialBox;
+				box1.isPickable = false;
+				
+				
+				
+				
+				///////////////////////
+				//إنشاء لوحات عنوان الطاولات
+				
+				//الطاولة رقم 1
+				//إنشاء عمود عنوان الطاولة
+				var box1 = new BABYLON.MeshBuilder.CreateCylinder("cylinder", {height:4,diameterTop:0.5, diameterBottom:0.5}, scene);
+				box1.position.x=10;
+				box1.position.y=6;
+				box1.position.z=-10.5;
+				var materialBox = new BABYLON.StandardMaterial("texture1", scene);
+				materialBox.diffuseColor =  new BABYLON.Color3(0.8, 0.92, 0.09);
+				box1.material = materialBox;
+				box1.isPickable = false;
+            
+				//الطاولة رقم 1
+				//لوحة عنوان الطاولة
+				var box1 = new BABYLON.MeshBuilder.CreateBox("box2", { width:5, height: 2, depth:0.5 }, scene);
+				box1.position.x=9;
+				box1.position.y=8;
+				box1.position.z=-10.51;
+				var material = new BABYLON.StandardMaterial("material", scene);
+				material.diffuseTexture = new BABYLON.Texture( "img/151.jpg", scene);
+				material.diffuseTexture.hasAlpha = true;
+				material.backFaceCulling = false;
+				box1.material = material;
+				box1.isPickable = false;
+            
+				//الطاولة رقم 1
+				//لوحة عنوان الطاولة الجانب الخلفي
+				var box1 = new BABYLON.MeshBuilder.CreateBox("box51", {width: 0.5, height: 5, depth:2 }, scene);
+				box1.position.x=9;
+				box1.position.y=8;
+				box1.position.z=-10.49;
+				box1.rotation.x=-3.14/2;
+				box1.rotation.y=3.14/2;
+				var material = new BABYLON.StandardMaterial("material", scene);
+				material.diffuseTexture = new BABYLON.Texture( "img/151.jpg", scene);
+				material.diffuseTexture.hasAlpha = true;
+				material.backFaceCulling = false;
+				box1.material = material;
+				box1.isPickable = false;
+            
+				//الطاولة رقم 2
+				//إنشاء عمود عنوان الطاولة
+				var box1 = new BABYLON.MeshBuilder.CreateCylinder("cylinder", {height:4,diameterTop:0.5, diameterBottom:0.5}, scene);
+				box1.position.x=-10;
+				box1.position.y=6;
+				box1.position.z=-10.5;
+				var materialBox = new BABYLON.StandardMaterial("texture1", scene);
+				materialBox.diffuseColor =  new BABYLON.Color3(0.8, 0.92, 0.09);
+				box1.material = materialBox;
+				box1.isPickable = false;
+            
+				//الطاولة رقم 2
+				//لوحة عنوان الطاولة
+				var box1 = new BABYLON.MeshBuilder.CreateBox("box2", { width:5, height: 2, depth:0.5 }, scene);
+				box1.position.x=-11;
+				box1.position.y=8;
+				box1.position.z=-10.51;
+				var material = new BABYLON.StandardMaterial("material", scene);
+				material.diffuseTexture = new BABYLON.Texture( "img/151.jpg", scene);
+				material.diffuseTexture.hasAlpha = true;
+				material.backFaceCulling = false;
+				box1.material = material;
+				box1.isPickable = false;
+            
+				//الطاولة رقم 2
+				//لوحة عنوان الطاولة الجانب الخلفي
+				var box1 = new BABYLON.MeshBuilder.CreateBox("box51", {width: 0.5, height: 5, depth:2 }, scene);
+				box1.position.x=-11;
+				box1.position.y=8;
+				box1.position.z=-10.49;
+				box1.rotation.x=-3.14/2;
+				box1.rotation.y=3.14/2;
+				var material = new BABYLON.StandardMaterial("material", scene);
+				material.diffuseTexture = new BABYLON.Texture( "img/151.jpg", scene);
+				material.diffuseTexture.hasAlpha = true;
+				material.backFaceCulling = false;
+				box1.material = material;
+				box1.isPickable = false;
+            
+				//الطاولة رقم 3
+				//إنشاء عمود عنوان الطاولة
+				var box1 = new BABYLON.MeshBuilder.CreateCylinder("cylinder", {height:4,diameterTop:0.5, diameterBottom:0.5}, scene);
+				box1.position.x=10;
+				box1.position.y=6;
+				box1.position.z=14.5;
+				var materialBox = new BABYLON.StandardMaterial("texture1", scene);
+				materialBox.diffuseColor =  new BABYLON.Color3(0.8, 0.92, 0.09);
+				box1.material = materialBox;
+				box1.isPickable = false;
+            
+				//الطاولة رقم 3
+				//لوحة عنوان الطاولة
+				var box1 = new BABYLON.MeshBuilder.CreateBox("box2", { width:5, height: 2, depth:0.5 }, scene);
+				box1.position.x=9;
+				box1.position.y=8;
+				box1.position.z=14.49;
+				var material = new BABYLON.StandardMaterial("material", scene);
+				material.diffuseTexture = new BABYLON.Texture( "img/151.jpg", scene);
+				material.diffuseTexture.hasAlpha = true;
+				material.backFaceCulling = false;
+				box1.material = material;
+				box1.isPickable = false;
+            
+				//الطاولة رقم 3
+				//لوحة عنوان الطاولة الجانب الخلفي
+				var box1 = new BABYLON.MeshBuilder.CreateBox("box51", {width: 0.5, height: 5, depth:2 }, scene);
+				box1.position.x=9;
+				box1.position.y=8;
+				box1.position.z=14.51;
+				box1.rotation.x=-3.14/2;
+				box1.rotation.y=3.14/2;
+				var material = new BABYLON.StandardMaterial("material", scene);
+				material.diffuseTexture = new BABYLON.Texture( "img/151.jpg", scene);
+				material.diffuseTexture.hasAlpha = true;
+				material.backFaceCulling = false;
+				box1.material = material;
+				box1.isPickable = false;
+            
+				//الطاولة رقم 4
+				//إنشاء عمود عنوان الطاولة
+				var box1 = new BABYLON.MeshBuilder.CreateCylinder("cylinder", {height:4,diameterTop:0.5, diameterBottom:0.5}, scene);
+				box1.position.x=-10;
+				box1.position.y=6;
+				box1.position.z=14.5;
+				var materialBox = new BABYLON.StandardMaterial("texture1", scene);
+				materialBox.diffuseColor =  new BABYLON.Color3(0.8, 0.92, 0.09);
+				box1.material = materialBox;
+				box1.isPickable = false;
+            
+				//الطاولة رقم 4
+				//لوحة عنوان الطاولة
+				var box1 = new BABYLON.MeshBuilder.CreateBox("box2", { width:5, height: 2, depth:0.5 }, scene);
+				box1.position.x=-11;
+				box1.position.y=8;
+				box1.position.z=14.49;
+				var material = new BABYLON.StandardMaterial("material", scene);
+				material.diffuseTexture = new BABYLON.Texture( "img/151.jpg", scene);
+				material.diffuseTexture.hasAlpha = true;
+				material.backFaceCulling = false;
+				box1.material = material;
+				box1.isPickable = false;
+            
+				//الطاولة رقم 4
+				//لوحة عنوان الطاولة الجانب الخلفي
+				var box1 = new BABYLON.MeshBuilder.CreateBox("box51", {width: 0.5, height: 5, depth:2 }, scene);
+				box1.position.x=-11;
+				box1.position.y=8;
+				box1.position.z=14.51;
+				box1.rotation.x=-3.14/2;
+				box1.rotation.y=3.14/2;
+				var material = new BABYLON.StandardMaterial("material", scene);
+				material.diffuseTexture = new BABYLON.Texture( "img/151.jpg", scene);
+				material.diffuseTexture.hasAlpha = true;
+				material.backFaceCulling = false;
+				box1.material = material;
+				box1.isPickable = false;
+            
+				
+				
+				
+				///////////////////////////
+				//إنشاء لوحات التحكم في الطاولات
+				
+				//الطاولة رقم 1
+				//لوحة التحكم في الطاولة
+				var box1 = new BABYLON.MeshBuilder.CreateBox("box2", { width:2, height: 2, depth:0.5 }, scene);
+				box1.position.x=12.5;
+				box1.position.y=8;
+				box1.position.z=-10.51;
+				var material = new BABYLON.StandardMaterial("material", scene);
+				material.diffuseTexture = new BABYLON.Texture( "img/151.jpg", scene);
+				material.diffuseTexture.hasAlpha = true;
+				material.backFaceCulling = false;
+				box1.material = material;
+				box1.isPickable = false;
+            
+				
+				//الطاولة رقم 1
+				//لوحة التحكم في الطاولةالجانب الخلفي
+				var box1 = new BABYLON.MeshBuilder.CreateBox("box51", {width: 0.5, height: 2, depth:2 }, scene);
+				box1.position.x=12.5;
+				box1.position.y=8;
+				box1.position.z=-10.49;
+				box1.rotation.x=-3.14/2;
+				box1.rotation.y=3.14/2;
+				var material = new BABYLON.StandardMaterial("material", scene);
+				material.diffuseTexture = new BABYLON.Texture( "img/151.jpg", scene);
+				material.diffuseTexture.hasAlpha = true;
+				material.backFaceCulling = false;
+				box1.material = material;
+				box1.isPickable = false;
+            
+				
+            	//الطاولة رقم 2
+				//لوحة التحكم في الطاولة
+				var box1 = new BABYLON.MeshBuilder.CreateBox("box2", { width:2, height: 2, depth:0.5 }, scene);
+				box1.position.x=-7.5;
+				box1.position.y=8;
+				box1.position.z=-10.51;
+				var material = new BABYLON.StandardMaterial("material", scene);
+				material.diffuseTexture = new BABYLON.Texture( "img/151.jpg", scene);
+				material.diffuseTexture.hasAlpha = true;
+				material.backFaceCulling = false;
+				box1.material = material;
+				box1.isPickable = false;
+            
+				
+				//الطاولة رقم 2
+				//لوحة التحكم في الطاولةالجانب الخلفي
+				var box1 = new BABYLON.MeshBuilder.CreateBox("box51", {width: 0.5, height: 2, depth:2 }, scene);
+				box1.position.x=-7.5;
+				box1.position.y=8;
+				box1.position.z=-10.49;
+				box1.rotation.x=-3.14/2;
+				box1.rotation.y=3.14/2;
+				var material = new BABYLON.StandardMaterial("material", scene);
+				material.diffuseTexture = new BABYLON.Texture( "img/151.jpg", scene);
+				material.diffuseTexture.hasAlpha = true;
+				material.backFaceCulling = false;
+				box1.material = material;
+				box1.isPickable = false;
+            
+            	
+           		//الطاولة رقم 3
+				//لوحة التحكم في الطاولة
+				var box1 = new BABYLON.MeshBuilder.CreateBox("box2", { width:2, height: 2, depth:0.5 }, scene);
+				box1.position.x=12.5;
+				box1.position.y=8;
+				box1.position.z=14.49;
+				var material = new BABYLON.StandardMaterial("material", scene);
+				material.diffuseTexture = new BABYLON.Texture( "img/151.jpg", scene);
+				material.diffuseTexture.hasAlpha = true;
+				material.backFaceCulling = false;
+				box1.material = material;
+				box1.isPickable = false;
+            
+				
+				//الطاولة رقم 3
+				//لوحة التحكم في الطاولةالجانب الخلفي
+				var box1 = new BABYLON.MeshBuilder.CreateBox("box51", {width: 0.5, height: 2, depth:2 }, scene);
+				box1.position.x=12.5;
+				box1.position.y=8;
+				box1.position.z=14.51;
+				box1.rotation.x=-3.14/2;
+				box1.rotation.y=3.14/2;
+				var material = new BABYLON.StandardMaterial("material", scene);
+				material.diffuseTexture = new BABYLON.Texture( "img/151.jpg", scene);
+				material.diffuseTexture.hasAlpha = true;
+				material.backFaceCulling = false;
+				box1.material = material;
+				box1.isPickable = false;
+            
+            
+            	//الطاولة رقم 4
+				//لوحة التحكم في الطاولة
+				var box1 = new BABYLON.MeshBuilder.CreateBox("box2", { width:2, height: 2, depth:0.5 }, scene);
+				box1.position.x=-7.5;
+				box1.position.y=8;
+				box1.position.z=14.49;
+				var material = new BABYLON.StandardMaterial("material", scene);
+				material.diffuseTexture = new BABYLON.Texture( "img/151.jpg", scene);
+				material.diffuseTexture.hasAlpha = true;
+				material.backFaceCulling = false;
+				box1.material = material;
+				box1.isPickable = false;
+            
+				
+				//الطاولة رقم 4
+				//لوحة التحكم في الطاولةالجانب الخلفي
+				var box1 = new BABYLON.MeshBuilder.CreateBox("box51", {width: 0.5, height: 2, depth:2 }, scene);
+				box1.position.x=-7.5;
+				box1.position.y=8;
+				box1.position.z=14.51;
+				box1.rotation.x=-3.14/2;
+				box1.rotation.y=3.14/2;
+				var material = new BABYLON.StandardMaterial("material", scene);
+				material.diffuseTexture = new BABYLON.Texture( "img/151.jpg", scene);
+				material.diffuseTexture.hasAlpha = true;
+				material.backFaceCulling = false;
+				box1.material = material;
+				box1.isPickable = false;
+            
+				
+				
+				
+        
+        
+				/*
+				var inputMap = {};
+				scene.actionManager = new BABYLON.ActionManager(scene);
+				scene.actionManager.registerAction(new BABYLON.ExecuteCodeAction(BABYLON.ActionManager.OnKeyDownTrigger, function (evt) {
+				inputMap[evt.sourceEvent.key] = evt.sourceEvent.type == "keydown";
+				}));
+				scene.actionManager.registerAction(new BABYLON.ExecuteCodeAction(BABYLON.ActionManager.OnKeyUpTrigger, function (evt) {
+				inputMap[evt.sourceEvent.key] = evt.sourceEvent.type == "keydown";
+				}));
+				//Rendering loop (executed for everyframe)
+				scene.onBeforeRenderObservable.add(() => {
+					
+				//Manage the movements of the character (e.g. position, direction)
+				if (inputMap["u"]) {
+				   box108.position.z += 1;
+				
+				}
+				if (inputMap["j"]) {
+					box108.position.z += -1;
+				}
+				
+				 if (inputMap["k"]) {
+					 box108.position.x += 1;
+				}
+				
+				if (inputMap["h"]) {
+				  box108.position.x += -1;
+				}
+			   
+				if (inputMap["m"]) {
+				   box108.position.y += 1;
+				}
+				if (inputMap["n"]) {
+				   box108.position.y += -1;
+				}
+			   
+				});
+			
+				*/
+				
+				
+		
+				//إنشاء مواد وأدوات الطاولة رقم 2
+				
+				
+				
+				
+				
+				
+				/////////////////////
+				//إنشاء اللوحات
+				
+				//إنشاء لوحة تعريف المعمل
+				var box1 = new BABYLON.MeshBuilder.CreateBox("box51", { width: 40, height:6, depth: 0.2 }, scene);
+				box1.position.x = 0;
+				box1.position.y = 25;
+				box1.position.z =- 35.5;
+				var material = new BABYLON.StandardMaterial("material", scene);
+				material.diffuseTexture = new BABYLON.Texture( "img/100.jpg", scene);
+				material.diffuseTexture.hasAlpha = true;
+				material.backFaceCulling = false;
+				box1.material = material;
+				box1.isPickable = false;
+            
+				//إنشاء لوحة التعليمات
+				var box1 = new BABYLON.MeshBuilder.CreateBox("box51", { width: 7, height: 10, depth: 0.2 }, scene);
+				box1.position.x = 17.5;
+				box1.position.y = 15;
+				box1.position.z = -35.5;
+				var material = new BABYLON.StandardMaterial("material", scene);
+				material.diffuseTexture = new BABYLON.Texture( "img/90.jpg", scene);
+				material.diffuseTexture.hasAlpha = true;
+				material.backFaceCulling = false;
+				box1.material = material;
+				box1.isPickable = false;
+            
+				////////////
+				//إنشاء اللوحات المعمل
+				
+				//ملحوظة ترقيم اللوحات حسب ورودهم في الدرس وليس حسب الجانب
+				
+				//إنشاء لوحات الجانب الجنوبي
+				//إنشاء اللوحة رقم 1
+				var box1 = new BABYLON.MeshBuilder.CreateBox("box51", { width: 0.2, height: 7, depth:10 }, scene);
+				box1.position.x=20;
+				box1.position.y=20;
+				box1.position.z=-32.5;
+				box1.rotation.x=-3.14/2;
+				box1.rotation.y=3.14/2;
+				var material = new BABYLON.StandardMaterial("material", scene);
+				material.diffuseTexture = new BABYLON.Texture( "img/101.jpg", scene);
+				material.diffuseTexture.hasAlpha = true;
+				material.backFaceCulling = false;
+				box1.material = material;
+				box1.isPickable = false;
+            
+            	//إنشاء اللوحة رقم 12
+				var box1 = new BABYLON.MeshBuilder.CreateBox("box51", { width: 0.2, height: 7, depth:10 }, scene);
+				box1.position.x=-20;
+				box1.position.y=20;
+				box1.position.z=-32.5;
+				box1.rotation.x=-3.14/2;
+				box1.rotation.y=3.14/2;
+				var material = new BABYLON.StandardMaterial("material", scene);
+				material.diffuseTexture = new BABYLON.Texture( "img/101.jpg", scene);
+				material.diffuseTexture.hasAlpha = true;
+				material.backFaceCulling = false;
+				box1.material = material;
+				box1.isPickable = false;
+            
+				//إنشاء لوحات الجانب الشرقي
+				//إنشاء اللوحة رقم 2
+				var box1 = BABYLON.MeshBuilder.CreateBox("box51", { width:0.2, height: 7, depth:10 }, scene);
+				box1.position.x=29.5;
+				box1.position.y=20;
+				box1.position.z=-25;
+				box1.rotation.x=-3.14/2;
+				var material = new BABYLON.StandardMaterial("material", scene);
+				material.diffuseTexture = new BABYLON.Texture( "img/102.jpg", scene);
+				material.diffuseTexture.hasAlpha = true;
+				material.backFaceCulling = false;
+				box1.material = material;
+				box1.isPickable = false;
+            
+				//إنشاء اللوحة رقم 3
+				var box1 = BABYLON.MeshBuilder.CreateBox("box51", { width:0.2, height: 7, depth:10 }, scene);
+				box1.position.x=29.5;
+				box1.position.y=20;
+				box1.position.z=-13.5;
+				box1.rotation.x=-3.14/2;
+				var material = new BABYLON.StandardMaterial("material", scene);
+				material.diffuseTexture = new BABYLON.Texture( "img/103.jpg", scene);
+				material.diffuseTexture.hasAlpha = true;
+				material.backFaceCulling = false;
+				box1.material = material;
+				box1.isPickable = false;
+            
+				//إنشاء اللوحة رقم 4
+				var box1 = BABYLON.MeshBuilder.CreateBox("box51", { width:0.2, height: 7, depth:10 }, scene);
+				box1.position.x=29.5;
+				box1.position.y=20;
+				box1.position.z=13.5;
+				box1.rotation.x=-3.14/2;
+				var material = new BABYLON.StandardMaterial("material", scene);
+				material.diffuseTexture = new BABYLON.Texture( "img/104.jpg", scene);
+				material.diffuseTexture.hasAlpha = true;
+				material.backFaceCulling = false;
+				box1.material = material;
+				box1.isPickable = false;
+            
+				//إنشاء اللوحة رقم 5
+				var box1 = BABYLON.MeshBuilder.CreateBox("box51", { width:0.2, height: 7, depth:10 }, scene);
+				box1.position.x=29.5;
+				box1.position.y=20;
+				box1.position.z=25;
+				box1.rotation.x=-3.14/2;
+				var material = new BABYLON.StandardMaterial("material", scene);
+				material.diffuseTexture = new BABYLON.Texture( "img/105.jpg", scene);
+				material.diffuseTexture.hasAlpha = true;
+				material.backFaceCulling = false;
+				box1.material = material;
+				box1.isPickable = false;
+            
+				//إنشاء لوحات الجانب الشمالي
+				//إنشاء اللوحة رقم 6
+				var box1 = new BABYLON.MeshBuilder.CreateBox("box51", { width: 7, height: 10, depth: 0.2 }, scene);
+				box1.position.x = 17.5;
+				box1.position.y = 20;
+				box1.position.z = 34.5;
+				var material = new BABYLON.StandardMaterial("material", scene);
+				material.diffuseTexture = new BABYLON.Texture( "img/106.jpg", scene);
+				material.diffuseTexture.hasAlpha = true;
+				material.backFaceCulling = false;
+				box1.material = material;
+				box1.isPickable = false;
+				
+				//إنشاء اللوحة رقم 7
+				var box1 = new BABYLON.MeshBuilder.CreateBox("box51", { width: 7, height: 10, depth: 0.2 }, scene);
+				box1.position.x = -17.5;
+				box1.position.y = 20;
+				box1.position.z = 34.5;
+				var material = new BABYLON.StandardMaterial("material", scene);
+				material.diffuseTexture = new BABYLON.Texture( "img/107.jpg", scene);
+				material.diffuseTexture.hasAlpha = true;
+				material.backFaceCulling = false;
+				box1.material = material;
+				box1.isPickable = false;
+				
+				//إنشاء لوحات الجانب الغربي
+				
+				//إنشاء اللوحة رقم 8
+				var box1 = new BABYLON.MeshBuilder.CreateBox("box51", { width:0.2, height: 7, depth:10 }, scene);
+				box1.position.x=-29.5;
+				box1.position.y=20;
+				box1.position.z=25;
+				box1.rotation.x=3.14/2;
+				var material = new BABYLON.StandardMaterial("material", scene);
+				material.diffuseTexture = new BABYLON.Texture( "img/108.jpg", scene);
+				material.diffuseTexture.hasAlpha = true;
+				material.backFaceCulling = false;
+				box1.material = material;
+				box1.isPickable = false;
+            
+				//إنشاء اللوحة رقم 9
+				var box1 = new BABYLON.MeshBuilder.CreateBox("box51", { width:0.2, height: 7, depth:10 }, scene);
+				box1.position.x=-29.5;
+				box1.position.y=20;
+				box1.position.z=13.5;
+				box1.rotation.x=3.14/2;
+				var material = new BABYLON.StandardMaterial("material", scene);
+				material.diffuseTexture = new BABYLON.Texture( "img/109.jpg", scene);
+				material.diffuseTexture.hasAlpha = true;
+				material.backFaceCulling = false;
+				box1.material = material;
+				box1.isPickable = false;
+            
+				//إنشاء اللوحة رقم 10
+				var box1 = new BABYLON.MeshBuilder.CreateBox("box51", { width:0.2, height: 7, depth:10 }, scene);
+				box1.position.x=-29.5;
+				box1.position.y=20;
+				box1.position.z=-13.5;
+				box1.rotation.x=3.14/2;
+				var material = new BABYLON.StandardMaterial("material", scene);
+				material.diffuseTexture = new BABYLON.Texture( "img/110.jpg", scene);
+				material.diffuseTexture.hasAlpha = true;
+				material.backFaceCulling = false;
+				box1.material = material;
+				box1.isPickable = false;
+            
+				//إنشاء اللوحة رقم 11
+				var box1 = new BABYLON.MeshBuilder.CreateBox("box51", { width:0.2, height: 7, depth:10 }, scene);
+				box1.position.x=-29.5;
+				box1.position.y=20;
+				box1.position.z=-25;
+				box1.rotation.x=3.14/2;
+				var material = new BABYLON.StandardMaterial("material", scene);
+				material.diffuseTexture = new BABYLON.Texture( "img/111.jpg", scene);
+				material.diffuseTexture.hasAlpha = true;
+				material.backFaceCulling = false;
+				box1.material = material;
+				box1.isPickable = false;
+            
+				
+				
+				
+							
+				
+				/////////
+				//إنشاء شاشة العرض
+				//إدراج فيديو   
+				var planeOpts = { height: 14, width: 20, sideOrientation: BABYLON.Mesh.DOUBLESIDE };
+				var ANote0Video = BABYLON.MeshBuilder.CreatePlane("plane", planeOpts, scene);
+				var vidPos = (new BABYLON.Vector3(0,20,34.5))
+				ANote0Video.position = vidPos;
+				var ANote0VideoMat = new BABYLON.StandardMaterial("m", scene);
+				ANote0Video.isPickable = false;
+				
+				/*
+				https://www.youtube.com/embed/_Xe6vyoKbMs?si=gTUIcGZvsQn18Ul3
+				
+				https://www.youtube.com/watch?v=_Xe6vyoKbMs
+				*/
+				var ANote0VideoVidTex = new BABYLON.VideoTexture("vidtex","https://www.youtube.com/watch?v=_Xe6vyoKbMs", scene);
+				ANote0VideoMat.diffuseTexture = ANote0VideoVidTex;
+				ANote0VideoMat.roughness = 1;
+				ANote0VideoMat.emissiveColor = new BABYLON.Color3.White();
+				ANote0Video.material = ANote0VideoMat;
+				scene.onPointerObservable.add(function(evt){
+						if(evt.pickInfo.pickedMesh === ANote0Video){
+							//console.log("picked");
+								if(ANote0VideoVidTex.video.paused)
+									ANote0VideoVidTex.video.play();
+								else
+									ANote0VideoVidTex.video.pause();
+								console.log(ANote0VideoVidTex.video.paused?"paused":"playing");
+						}
+				}, BABYLON.PointerEventTypes.POINTERPICK);
+				
+	
+				
+				
+                
+            
+             /////////////////////////////////
+				
+				/*التحكم فى المشهد من خلال الأزرار والماوس*/
+					/*التحكم فى المشهد من خلال الأزرار والماوس*/
+
+/*
+            //1
+//شمال
+
+   var advancedTexture = BABYLON.GUI.AdvancedDynamicTexture.CreateFullscreenUI("UI");
+
+    var button = BABYLON.GUI.Button.CreateImageOnlyButton("but", "img/22.jpg");
+	 button.horizontalAlignment = BABYLON.GUI.Control.HORIZONTAL_ALIGNMENT_CENTER;
+	button.verticalAlignment = BABYLON.GUI.Control.VERTICAL_ALIGNMENT_TOP;
+    button.width = "40px";
+    button.height = "40px";
+    button.color = "white";
+    button.background = "green";
+	button.rotation = -3.14/2;
+	button.cornerRadius = 20;
+	button.left = "75px";
+	button.top = "500px";
+	 
+	
+	
+	
+	 button.onPointerUpObservable.add(function () {
+
+		 if (z < 30 ) {
+                    camera.position.z += 1;
+					z++;
+					//التحكم فى الصوت عند الانتقال شمالا
+					pz++;
+					}
+					
+					//التحرك إلى الشمال في المنطقة 11
+                    if( z <= -146 ) {
+                    camera.position.z += 2;
+					 z += 2;
+					pz += 2;
+					 }
+					//التحرك إلى الشمال في المنطقة 10
+					  if( z <= 144 && z >= -146 &&  x <= 146 &&  x >= -146 ) {
+                    camera.position.z += 2;
+					 z += 2;
+					pz += 2;
+					 
+					}
+					//الانتقال إلى الشمال في المنطقة 1
+					  if( z <= -56 && z >= -146 &&  x <= 246 &&  x >= 146 ) {
+                    camera.position.z += 2;
+					 z += 2;
+					pz += 2;
+					}
+					  
+					 //الانتقال إلى الشمال في المنطقة 2
+					  if( z <= 44 && z >= -46 &&  x <= 246 &&  x >= 146 ) {
+                    camera.position.z += 2;
+					 z += 2;
+					pz += 2;
+					}
+					 
+					 //الانتقال إلى الشمال في المنطقة 3
+					 if( z <= 144 && z >= 54 &&  x <= 246 &&  x >= 146 ) {
+                    camera.position.z += 2;
+					 z += 2;
+					pz += 2;
+					}
+					
+					 //الانتقال إلى الشمال في المنطقة 4
+					  if( z <= 244 && z >= 146 &&  x <= 146 &&  x >= 54 ) {
+                    camera.position.z += 2;
+					 z += 2;
+					pz += 2;
+					 
+					}
+					 
+					 //الانتقال إلى الشمال في المنطقة 5
+					 if( z <= 244 && z >= 146 &&  x <= 46 &&  x >= -46 ) {
+                    camera.position.z += 2;
+					 z += 2;
+					pz += 2;
+					 
+					}
+					 //الانتقال إلى الشمال في المنطقة 6
+					 if( z <= 244 && z >= 146 &&  x <= -54 &&  x >= -146 ) {
+                    camera.position.z += 2;
+					 z += 2;
+					pz += 2;
+					 
+					}
+					  
+					 //الانتقال إلى الشمال في المنطقة 7
+					if( z <= 144 && z >= 54 &&  x <= -146 &&  x >= -246 ) {
+                    camera.position.z += 2;
+					 z += 2;
+					pz += 2;
+					}
+					 
+					  //الانتقال إلى الشمال في المنطقة 8
+					 if( z <= 44 && z >= -46 &&  x <= -146 &&  x >= -246 ) {
+                    camera.position.z += 2;
+					 z += 2;
+					pz += 2;
+					}
+					
+					  //الانتقال إلى الشمال في المنطقة 9
+					
+					  if( z <= -56 && z >= -146 &&  x <= -146 &&  x >= -246 ) {
+                    camera.position.z += 2;
+					 z += 2;
+					pz += 2;
+					}
+					 
+					
+				        });
+    advancedTexture.addControl(button); 
+ 
+
+//2
+//شرق
+
+var advancedTexture = BABYLON.GUI.AdvancedDynamicTexture.CreateFullscreenUI("UI");
+
+    var button = BABYLON.GUI.Button.CreateImageOnlyButton("but", "img/22.jpg");
+	 button.horizontalAlignment = BABYLON.GUI.Control.HORIZONTAL_ALIGNMENT_CENTER;
+	button.verticalAlignment = BABYLON.GUI.Control.VERTICAL_ALIGNMENT_TOP;
+    button.width = "40px";
+    button.height = "40px";
+    button.color = "white";
+    button.background = "green";
+	button.rotation = 0;
+	button.cornerRadius = 20;
+	button.left = "125px";
+	button.top = "525px";
+	
+	
+	
+	
+	 
+	 button.onPointerUpObservable.add(function () {
+
+		 
+					
+				//الانتقال إلى الشرق في المنطقة 10
+					if(  x >= -146 &&  x <= 144  && z >= -146 && z <= 146 ){
+                        camera.position.x += 2;
+						x += 2;
+						px += 2;
+						}
+					
+					//الانتقال إلى الشرق في المنطقة 1
+					if( x >= 146 && x <=244  && z >= -146 && z <= -56 ){
+                        camera.position.x += 2;
+						x += 2;
+						px += 2;
+						}
+					
+					//الانتقال إلى الشرق في المنطقة 2
+					if( x >= 146 && x <=244  && z >= -46 && z <= 44 ){
+                        camera.position.x += 2;
+						x += 2;
+						px += 2;
+						}
+					//الانتقال إلى الشرق في المنطقة 3
+					if( x >= 146 && x <=244  && z >= 54 && z <= 144 ){
+                        camera.position.x += 2;
+						x += 2;
+						px += 2;
+						}
+							
+					//الانتقال إلى الشرق في المنطقة 4
+					if( x >= 54 && x <=144  && z >= 146 && z <= 246 ){
+                        camera.position.x += 2;
+						x += 2;
+						px += 2;
+						}
+						
+					//الانتقال إلى الشرق في المنطقة 5
+					if( x >= -46 && x <=44  && z >= 146 && z <= 246 ){
+                        camera.position.x += 2;
+						x += 2;
+						px += 2;
+						}
+						
+					//الانتقال إلى الشرق في المنطقة 6
+					if( x >= -146 && x <=-56  && z >= 146 && z <= 246 ){
+                        camera.position.x += 2;
+						x += 2;
+						px += 2;
+						}
+							
+					//الانتقال إلى الشرق في المنطقة 7
+					if( x >= -246 && x <=-146  && z >= 54 && z <= 146 ){
+                        camera.position.x += 2;
+						x += 2;
+						px += 2;
+						}
+						
+					//الانتقال إلى الشرق في المنطقة 8
+					if( x >= -246 && x <=-146  && z >= -46 && z <= 46 ){
+                        camera.position.x += 2;
+						x += 2;
+						px += 2;
+						}
+					
+					//الانتقال إلى الشرق في المنطقة 9
+					
+					if( x >= -246 && x <=-146  && z >= -146 && z <= -54 ){
+                        camera.position.x += 2;
+						x += 2;
+						px += 2;
+						}	
+					
+				
+					});
+    advancedTexture.addControl(button); 
+
+
+//3
+//جنوب
+var advancedTexture = BABYLON.GUI.AdvancedDynamicTexture.CreateFullscreenUI("UI");
+
+    var button = BABYLON.GUI.Button.CreateImageOnlyButton("but", "img/22.jpg");
+	 button.horizontalAlignment = BABYLON.GUI.Control.HORIZONTAL_ALIGNMENT_CENTER;
+	button.verticalAlignment = BABYLON.GUI.Control.VERTICAL_ALIGNMENT_TOP;
+    button.width = "40px";
+    button.height = "40px";
+    button.color = "white";
+    button.background = "green";
+	button.rotation = 3.14/2;
+	button.cornerRadius = 20;
+	button.left = "75px";
+	button.top = "550px";
+	 
+	button.onPointerUpObservable.add(function () { 
+	
+	
+					
+				//الانتقال إلى الجنوب في المنطقة 11
+                            if( z >= -450 && x <=20 && x >= -20){
+                        camera.position.z -= 2;
+						z -= 2;
+						pz -=2;
+						
+						}
+						
+					//الانتقال إلى الجنوب في المنطقة 10
+					  if( z <= 146 && z >= -144 &&  x <= 146 &&  x >= -146 ) {
+                    camera.position.z -= 2;
+					 z -=2;
+					pz -=2;
+					 }
+					
+					//الانتقال إلى الجنوب في المنطقة 1
+					  if( z <= -54 && z >= -144 &&  x <= 246 &&  x >= 146 ) {
+                    camera.position.z -= 2;
+					 z -=2;
+					pz -=2;
+					 }
+					
+					 //الانتقال إلى الجنوب في المنطقة 2
+					  if( z <= 46 && z >= -44 &&  x <= 246 &&  x >= 146 ) {
+                    camera.position.z -= 2;
+					 z -=2;
+					pz -=2;
+					 }
+					 
+					//الانتقال إلى الجنوب في المنطقة 3
+					  if( z <= 146 && z >= 56 &&  x <= 246 &&  x >= 146 ) {
+                    camera.position.z -= 2;
+					 z -=2;
+					pz -=2;
+					 }
+					  
+					//الانتقال إلى الجنوب في المنطقة 4
+					  if( z <= 246 && z >= 146 &&  x <= 146 &&  x >= 54 ) {
+                    camera.position.z -= 2;
+					 z -=2;
+					pz -=2;
+					 }
+					
+					//الانتقال إلى الجنوب في المنطقة 5
+					  if( z <= 246 && z >= 146 &&  x <= 46 &&  x >= -46 ) {
+                    camera.position.z -= 2;
+					 z -=2;
+					pz -=2;
+					 }
+					//الانتقال إلى الجنوب في المنطقة 6
+					  if( z <= 246 && z >= 146 &&  x <= -54 &&  x >= -146 ) {
+                    camera.position.z -= 2;
+					 z -=2;
+					pz -=2;
+					 }
+					 
+					//الانتقال إلى الجنوب في المنطقة 7
+					  if( z <= 146 && z >= 56 &&  x <=-146 &&  x >= -246 ) {
+                    camera.position.z -= 2;
+					 z -=2;
+					pz -=2;
+					 }
+					 
+					//الانتقال إلى الجنوب في المنطقة 8
+					  if( z <= 46 && z >= 44 &&  x <=-146 &&  x >= -246 ) {
+                    camera.position.z -= 2;
+					 z -=2;
+					pz -=2;
+					 }
+					 //الانتقال إلى الجنوب في المنطقة 9
+					  if( z <= -54 && z >= -144 &&  x <=-146 &&  x >= -246 ) {
+                    camera.position.z -= 2;
+					 z -=2;
+					pz -=2;
+					 }	
+					
+					
+					
+                });
+    advancedTexture.addControl(button); 
+
+
+
+   //4
+   //غرب
+var advancedTexture = BABYLON.GUI.AdvancedDynamicTexture.CreateFullscreenUI("UI");
+
+    var button = BABYLON.GUI.Button.CreateImageOnlyButton("but", "img/22.jpg");
+	 button.horizontalAlignment = BABYLON.GUI.Control.HORIZONTAL_ALIGNMENT_CENTER;
+	button.verticalAlignment = BABYLON.GUI.Control.VERTICAL_ALIGNMENT_TOP;
+    button.width = "40px";
+    button.height = "40px";
+    button.color = "white";
+    button.background = "green";
+	button.rotation = 3.14;
+	button.cornerRadius = 20;
+	button.left = "25px";
+	button.top = "525px";
+	 
+	  button.onPointerUpObservable.add(function () {
+
+		 
+					
+				//الانتقال إلى الغرب في المنطق 10
+					if(  x >= -144 &&  x <= 146  && z >= -146 && z <= 146 ){
+                        camera.position.x -= 2;
+						x -= 2;
+						px -= 2;
+						}
+					
+					
+					//الانتقال إلى الغرب في المنطقة 1
+					
+					if(  x >= 146 &&  x <= 246  && z >= -146 && z <= -54 ){
+                        camera.position.x -= 2;
+						x -= 2;
+						px -= 2;
+						}
+						
+								
+					//الانتقال إلى الغرب في المنطقة 2
+					
+					if(  x >= 146 &&  x <= 246  && z >= -46 && z <= 46 ){
+                        camera.position.x -= 2;
+						x -= 2;
+						px -= 2;
+						}
+					
+					//الانتقال إلى الغرب في المنطقة 3
+					
+					if( x >= 146 &&  x <= 246  && z >= 54 && z <= 146 ){
+                        camera.position.x -= 2;
+						x -= 2;
+						px -= 2;
+						}
+					
+					//الانتقال إلى الغرب في المنطقة 4
+					
+					if(  x >= 56 &&  x <= 146  && z >= 146 && z <= 246 ){
+                        camera.position.x -= 2;
+						x -= 2;
+						px -= 2;
+						}
+						
+					//الانتقال إلى الغرب في المنطقة 5
+					
+					if(  x >= -44 &&  x <= 46  && z >= 146 && z <= 246 ){
+                        camera.position.x -= 2;
+						x -= 2;
+						px -= 2;
+						}
+						
+					//الانتقال إلى الغرب في المنطقة 6
+					
+					if(  x >= -144 &&  x <= -54  && z >= 146 && z <= 246 ){
+                        camera.position.x -= 2;
+						x -= 2;
+						px -= 2;
+						}
+						
+					//الانتقال إلى الغرب في المنطقة 7
+					
+					
+					if(  x >= -244 &&  x <= -146  && z >= -146 && z <= -54 ){
+                        camera.position.x -= 2;
+						x -= 2;
+						px -= 2;
+						}
+					//الانتقال إلى الغرب في المنطقة 8
+					
+					
+					if(  x >= -244 &&  x <= -146  && z >= -46 && z <= 46 ){
+                        camera.position.x -= 2;
+						x -= 2;
+						px -= 2;
+						}
+						
+					//الانتقال إلى الغرب في المنطقة 9
+					
+					if(  x >= -244 &&  x <= -146  && z >= 54 && z <= 146 ){
+                        camera.position.x -= 2;
+						x -= 2;
+						px -= 2;
+						}	
+					
+			
+                });
+    advancedTexture.addControl(button); 
+
+
+//5
+//استدارة لأعلى
+   var advancedTexture = BABYLON.GUI.AdvancedDynamicTexture.CreateFullscreenUI("UI");
+
+    var button = BABYLON.GUI.Button.CreateImageOnlyButton("but", "img/23.jpg");
+	 button.horizontalAlignment = BABYLON.GUI.Control.HORIZONTAL_ALIGNMENT_CENTER;
+	button.verticalAlignment = BABYLON.GUI.Control.VERTICAL_ALIGNMENT_TOP;
+    button.width = "40px";
+    button.height = "40px";
+    button.color = "white";
+    button.background = "green";
+	button.rotation = -3.14/2;
+	button.cornerRadius = 20;
+	button.left = "-75px";
+	button.top = "500px";
+	//النظر إلى أعلى
+	 button.onPointerUpObservable.add(function () {
+                    camera.rotation.x -= 0.1;
+                });
+    advancedTexture.addControl(button); 
+ 
+
+//6
+//استدارة يمين
+var advancedTexture = BABYLON.GUI.AdvancedDynamicTexture.CreateFullscreenUI("UI");
+
+    var button = BABYLON.GUI.Button.CreateImageOnlyButton("but", "img/23.jpg");
+	 button.horizontalAlignment = BABYLON.GUI.Control.HORIZONTAL_ALIGNMENT_CENTER;
+	button.verticalAlignment = BABYLON.GUI.Control.VERTICAL_ALIGNMENT_TOP;
+    button.width = "40px";
+    button.height = "40px";
+    button.color = "white";
+    button.background = "green";
+	button.rotation = 0;
+	button.cornerRadius = 20;
+	button.left = "-25px";
+	button.top = "525px";
+	 
+	  //الاستدارة يمينا
+	   button.onPointerUpObservable.add(function () {
+                    camera.rotation.y += 0.1;
+					
+                });
+    advancedTexture.addControl(button); 
+
+
+//7
+//استدارة لأسفل
+var advancedTexture = BABYLON.GUI.AdvancedDynamicTexture.CreateFullscreenUI("UI");
+
+    var button = BABYLON.GUI.Button.CreateImageOnlyButton("but", "img/23.jpg");
+	 button.horizontalAlignment = BABYLON.GUI.Control.HORIZONTAL_ALIGNMENT_CENTER;
+	button.verticalAlignment = BABYLON.GUI.Control.VERTICAL_ALIGNMENT_TOP;
+    button.width = "40px";
+    button.height = "40px";
+    button.color = "white";
+    button.background = "green";
+	button.rotation = 3.14/2;
+	button.cornerRadius = 20;
+	button.left = "-75px";
+	button.top = "550px";
+	 //الاستدارة لأسفل
+	button.onPointerUpObservable.add(function () {
+                    camera.rotation.x += 0.1;
+                });
+    advancedTexture.addControl(button); 
+
+
+
+   //8
+   //استدارة يسار
+var advancedTexture = BABYLON.GUI.AdvancedDynamicTexture.CreateFullscreenUI("UI");
+
+    var button = BABYLON.GUI.Button.CreateImageOnlyButton("but", "img/23.jpg");
+	 button.horizontalAlignment = BABYLON.GUI.Control.HORIZONTAL_ALIGNMENT_CENTER;
+	button.verticalAlignment = BABYLON.GUI.Control.VERTICAL_ALIGNMENT_TOP;
+    button.width = "40px";
+    button.height = "40px";
+    button.color = "white";
+    button.background = "green";
+	button.rotation = 3.14;
+	button.cornerRadius = 20;
+	button.left = "-125px";
+	button.top = "525px";
+	 //الاستدارة يسارا
+	 button.onPointerUpObservable.add(function () {
+                    camera.rotation.y -= 0.1;
+                });
+    advancedTexture.addControl(button); 
+
+*/
+
+				/*التحكم فى المشهد من خلال لوحة المفاتيح*/
+				
+				var gizmoManager = new BABYLON.GizmoManager(scene)
+				document.onkeydown = (e)=>{
+                if( e.keyCode == 38 || e.keyCode == 40 || e.keyCode == 68  || e.keyCode == 65  || e.keyCode == 39 || e.keyCode == 37 || e.keyCode == 87 || e.keyCode == 83 ){
+                  
+                    gizmoManager.positionGizmoEnabled = false;
+                    gizmoManager.rotationGizmoEnabled = false;
+                    gizmoManager.scaleGizmoEnabled = false;
+                    gizmoManager.boundingBoxGizmoEnabled = false;
+					
+					//الانتقال إلى الشمال باستخدام لوحة المفاتيح
+					//التحرك إلى الشمال في المنطقة 11
+                   
+				
+					//الانتقال إلى الشمال في المنطقة 1
+					  if(e.keyCode == 38 && z < 25 && z > -100 &&  x < 26 &&  x > -26 ) {
+                    camera.position.z += 1;
+					 z += 1;
+					pz += 1;
+					}
+					  
+					//الانتقال إلى الجنوب باستخدام لوحة المفاتيح
+					
+					
+					//الانتقال إلى الجنوب في المنطقة 1
+					  if(e.keyCode == 40 && z < 26 && z > -99 &&  x < 26 &&  x > -26 ) {
+                    camera.position.z -= 1;
+					 z -=1;
+					pz -=1;
+					 }
+					
+					 
+					 
+					//الانتقال إلى الشرق باستخدام لوحة المفاتيح
+					
+					
+					
+					//الانتقال إلى الشرق في المنطقة 1
+					if(e.keyCode == 39   && x > -26 && x <25 && z > -100 && z < 26 ){
+                        camera.position.x += 1;
+						x += 1;
+						px += 1;
+						}
+					
+					
+						
+					//الانتقال إلى الغرب باستخدام لوحة المفاتيح
+					
+					
+					//الانتقال إلى الغرب في المنطقة 1
+					
+					if(e.keyCode == 37   &&  x > -25 &&  x < 26  && z > -100 && z < 26 ){
+                        camera.position.x -= 1;
+						x -= 1;
+						px -= 1;
+						}
+						
+							
+					
+					
+					
+					//الاستدارة إلى اليمين باستخدام لوحة المفاتيح
+					if(e.keyCode == 68) {
+					camera.rotation.y += 0.1;
+					}
+					
+					//الاستدارة إلى اليسار باستخدام لوحة المفاتيح
+					if(e.keyCode == 65) {
+					camera.rotation.y -= 0.1;
+					}
+					
+					
+					//الاستدارة إلى أعلى باستخدام لوحة المفاتيح
+					if(e.keyCode == 87 ) {
+					camera.rotation.x -= 0.1;
+					}
+					
+					//الاستدارة إلى أسفل باستخدام لوحة المفاتيح
+					if(e.keyCode == 83) {
+					camera.rotation.x += 0.1;
+					}
+									
+                }
+				}
+				
+				document.onkeydown({key: "l"})
+				
+				   
+                
+                //يجب إدراج جميع الكائنات قبل ذلك المكان
+                
+            
+            
+            
+
+        return scene;
+    };
+
+    var scene = createScene();
+
+    // تشغيل الرسم
+    engine.runRenderLoop(function () {
+        scene.render();
+    });
+    window.addEventListener("resize", function () {
+        engine.resize();
+    });
+
+        //نهاية كود مشهد بابلون
+		
+		 ///////////////////////////////
+        /*
+    // 🛠️ تحميل النموذج
+    function loadModel(scene, path, file, position) {
+        BABYLON.SceneLoader.ImportMesh("", path, file, scene, function (meshes) {
+            var model = meshes[0];
+            model.position = position;
+            model.scaling = new BABYLON.Vector3(1, 1, 1);
+        });
+    }
+*/
+    //دوال لوحة التحكم    
+        
+    // 🛠️ دوال التحكم
+    function move(direction) {
+        if (!selectedObject) return;
+        var step = 0.3;
+        switch (direction) {
+            case 'up': selectedObject.position.y += step; break;
+            case 'down': selectedObject.position.y -= step; break;
+            case 'left': selectedObject.position.x -= step; break;
+            case 'right': selectedObject.position.x += step; break;
+            case 'forward': selectedObject.position.z += step; break;
+            case 'backward': selectedObject.position.z -= step; break;
+        }
+    }
+
+    function rotate(direction) {
+        if (!selectedObject) return;
+        var angle = 0.1;
+        if (direction === 'left') selectedObject.rotation.z -= angle;
+        if (direction === 'right') selectedObject.rotation.z += angle;
+    }
+
+    function scale(direction) {
+        if (!selectedObject) return;
+        var factor = 0.1;
+        if (direction === 'up')
+            selectedObject.scaling = selectedObject.scaling.add(new BABYLON.Vector3(factor, factor, factor));
+        if (direction === 'down')
+            selectedObject.scaling = selectedObject.scaling.subtract(new BABYLON.Vector3(factor, factor, factor));
+    }
+     
+        
+      
+       
+     /*
+        function Interaction11141() {
+              
+    	 Interaction11141a = true;
+                        }
+                        
+                        , 1000);
+    };
+    */
+ 	  ////////////////
+         
+       
+		
+		//كود التحكم فى التعليقات داخل قاعة العرض
+		//متغيرات يجب إنشائها لكل لوحة	
+		var pic1=0;
+		var p1=0;
+		var pic2=0;
+		var p2=0;
+		var pic3=0;
+		var p3=0;
+		var pic4=0;
+		var p4=0;
+		var pic5=0;
+		var p5=0;
+		var pic6=0;
+		var p6=0;
+		var pic7=0;
+		var p7=0;
+		var pic8=0;
+		var p8=0;
+		var pic9=0;
+		var p9=0;
+		var pic10=0;
+		var p10=0;
+		var pic11=0;
+		var p11=0;
+		
+		
+		
+       	/*
+		var myT =setInterval( function(){
+		
+			  //برمجة التفاعل
+     
+     
+	
+		
+		//التحكم فى التعليق رقم 1
+		
+		if(pz<=18 && pz>=15  && px<=11 && px>=6 && p1==0){pic1=1; p1=1;};
+		for (d=1; d<2; d++){
+			if (pic1==1){
+				window.d1.innerHTML = "<audio src='audio/audio101.m4a' autoplay controls  />";
+				pic1=0;
+			};};
+		
+		
+		//التحكم فى التعليق رقم 2
+		
+		if(pz<=18 && pz>=15  && px<=3 && px>=-3 && p2==0){pic2=1; p2=1;};
+		for (d=1; d<2; d++){
+			if (pic2==1){
+				window.d1.innerHTML = "<audio src='audio/audio102.m4a' autoplay controls />";
+				pic2=0;
+			};};
+		
+		
+		
+		//التحكم فى التعليق رقم 3
+		
+		
+		if(pz<=18 && pz>=13 && px<=-6 && px>=-11 && p3==0){pic3=1; p3=1;};
+		for (d=1; d<2; d++){
+			if (pic3==1){
+				window.d1.innerHTML = "<audio src='audio/audio103.m4a' autoplay controls />";
+				pic3=0;
+			};};
+		
+		//التحكم فى التعليق رقم 4
+		
+		
+		if(pz<=11 && pz>=6 && px<=-15 && px>=-18 && p4==0){pic4=1; p4=1;};
+		for (d=1; d<2; d++){
+			if (pic4==1){
+				window.d1.innerHTML = "<audio src='audio/audio104.m4a' autoplay controls />";
+				pic4=0;
+			};};
+		
+		//التحكم فى التعليق رقم 5
+		
+		
+		if(pz<=3 && pz>=-3 && px<=-15 && px>=-18 && p5==0){pic5=1; p5=1;};
+		for (d=1; d<2; d++){
+			if (pic5==1){
+				window.d1.innerHTML = "<audio src='audio/audio105.m4a' autoplay controls />";
+				pic5=0;
+			};};
+		
+		//التحكم فى التعليق رقم 6
+		
+		
+		if(pz<=-6 && pz>=-11 && px<=-15 && px>=-18 && p6==0){pic6=1; p6=1;};
+		for (d=1; d<2; d++){
+			if (pic6==1){
+				window.d1.innerHTML = "<audio src='audio/audio106.m4a' autoplay controls />";
+				pic6=0;
+			};};
+		
+		//التحكم فى التعليق رقم 7
+		
+		
+		if(pz<=-15 && pz>=-18 && px<=-8 && px>=-14 && p7==0){pic7=1; p7=1;};
+		for (d=1; d<2; d++){
+			if (pic7==1){
+				window.d1.innerHTML = "<audio src='audio/audio107.m4a' autoplay controls />";
+				pic7=0;
+			};};
+		
+		//التحكم فى التعليق رقم 8
+		
+		
+		if(pz<=-15 && pz>=-18 && px<=14 && px>=8 && p8==0){pic8=1; p8=1;};
+		for (d=1; d<2; d++){
+			if (pic8==1){
+				window.d1.innerHTML = "<audio src='audio/audio108.m4a' autoplay controls />";
+				pic8=0;
+			};};
+		
+		//التحكم فى التعليق رقم 9
+		
+		
+		if(pz<=-6 && pz>=-11 && px<=18 && px>=15 && p9==0){pic9=1; p9=1;};
+		for (d=1; d<2; d++){
+			if (pic9==1){
+				window.d1.innerHTML = "<audio src='audio/audio109.m4a' autoplay controls />";
+				pic9=0;
+			};};
+		
+		
+		//التحكم فى التعليق رقم 10
+				
+		
+		if(pz<=3 && pz>=-3 && px<=18 && px>=15 && p10==0){pic10=1; p10=1;};
+		for (d=1; d<2; d++){
+			if (pic10==1){
+				window.d1.innerHTML = "<audio src='audio/audio110.m4a' autoplay controls />";
+				pic10=0;
+			};};
+		
+		//التحكم فى التعليق رقم 11
+		
+		
+		if(pz<=11 && pz>=6 && px<=18 && px>=15 && p11==0){pic11=1; p11=1;};
+		for (d=1; d<2; d++){
+			if (pic11==1){
+				window.d1.innerHTML = "<audio src='audio/audio111.m4a' autoplay controls />";
+				pic11=0;
+			};};
+		
+	
+		
+		//نهاية المؤقت	
+		}, 1000);
+			*/
+            
+              /////////////////
+            
+        
+</script>
+</body>
+</html>
