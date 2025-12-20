@@ -36,9 +36,7 @@
         <script src="https://cdn.babylonjs.com/addons/babylonjs.addons.min.js"></script>
         <script src="https://cdn.babylonjs.com/inspector/babylon.inspector.bundle.js"></script>
         <script src="https://cdn.babylonjs.com/loaders/babylon.objFileLoader.js"></script>
-<!--Programming object 5--> 		
-	<!--تنسيقات الصفحة العامة -->	
-		<style>
+  <style>
             html,
             body {
                 overflow: hidden;
@@ -47,162 +45,179 @@
                 margin: 0;
                 padding: 0;
                 display: flex;
-				justify-content: center;        /* يضع الـ container في المنتصف أفقياً */
-				align-items: center;            /* يضع الـ container في المنتصف عمودياً */
-				background: #f0f0f0;
-				};
+              justify-content: center;        /* يضع الـ container في المنتصف أفقياً */
+              align-items: center;            /* يضع الـ container في المنتصف عمودياً */
+              background: #f0f0f0;
+                    }
 
-             #renderCanvas {
+            #renderCanvas {
                 width: 100%;
                 height: 100%;
                 touch-action: none;
-            };
+            }
 
             #canvasZone {
                 width: 100%;
                 height: 100%;
-            };
-			
-        </style>
-
-<!--Programming object 6-->       
-    <!--تنسيقات لوحة التحكم html -->    
-		<style>
-			#ui {
-				direction: rtl;
-				text-align: center;
-				position: absolute;
-				top: 10px; right: 10px;
-				background: rgba(255,255,255,0.9);
-				padding: 10px;
-				border-radius: 10px;
-			}
-			button { margin: 3px; padding: 5px 10px; }
-		</style>
-
-        
-<!--Programming object 7-->  
-	<!--تنسقات التنقل باستخدام الماوس html--> 
-		<style>
-			.box {
-				  width: 300px;
-				  height: 100px;
-				  color: white;
-				  display: flex;
-				  justify-content: center;
-				  align-items: center;
-				  font-size: 18px;
-				  border-radius: 10px;
-				  background: rgba(255,255,255,0)
-				};
-				
-			#guia {
-				 position: absolute;
-				 top: 75%;
-				 gap: 10px; 
-				 width: 300px;
-				 height: 100px;
-				 display: flex;
-				  justify-content: center;
-				  align-items: center;
-				};
-				
-			
-			/*الانتقال إلى الأمام */
-			#gui1 {
-				position: absolute;
-				top: 5%;
-				right: 18%;
-				width: 0;
-				height: 0;
-				border-left: 20px solid transparent;
-				border-right: 20px solid transparent;
-				border-bottom: 40px solid rgb(0,128,0) ;
-			 	};
-				
-				
-			/*الانتقال إلى الخلف */
-			#gui2{
-				position: absolute;
-				bottom: 5%;
-				right: 18%;
-				width: 0;
-				height: 0;
-				border-left: 20px solid transparent;
-				border-right: 20px solid transparent;
-				border-top: 40px solid rgb( 0,128,0) ;
-				};
-				
-			/*الانتقال إلى اليمين */
-			#gui3{
-				position: absolute;
-				right: 4%;
-				width: 0;
-				height: 0;
-				border-top: 20px solid transparent;
-				border-bottom: 20px solid transparent;
-				border-left: 40px solid rgb(0,128,0) ;
-				};
-				
-			/*الانتقال إلى اليسار */	
-			#gui4{
-				position: absolute;
-				right: 33%;
-				width: 0;
-				height: 0;
-				border-top: 20px solid transparent;
-				border-bottom: 20px solid transparent;
-				border-right: 40px solid rgb(0,128,0) ;
-			 	};
-				
-			/*الاستدارة إلى أعلى */		
-			#gui5 {
-				position: absolute;
-				top: 5%;
-				right: 70%;
-				width: 0;
-				height: 0;
-				border-left: 20px solid transparent;
-				border-right: 20px solid transparent;
-				border-bottom: 40px solid rgb( 0, 0, 255) ;
-				};
-
-			/*الاستدارة إلى أسفل*/
-			#gui6{
-				position: absolute;
-				bottom: 5%;
-				right: 70%;
-				width: 0;
-				height: 0;
-				border-left: 20px solid transparent;
-				border-right: 20px solid transparent;
-				border-top: 40px solid rgb(0, 0, 255) ;
-				};
-				
-			/*الاستدارة إلى اليمين*/
-			#gui7{
-				position: absolute;
-				right: 56%;
-				width: 0;
-				height: 0;
-				border-top: 20px solid transparent;
-				border-bottom: 20px solid transparent;
-				border-left: 40px solid rgb(0, 0, 255) ;
-				};
-				
-			/*الاستدارة إلى اليسار*/
-			#gui8{
-				position: absolute;
-				right: 84%;
-				width: 0;
-				height: 0;
-				border-top: 20px solid transparent;
-				border-bottom: 20px solid transparent;
-				border-right: 40px solid rgb( 0, 0, 255) ;
-				};       
+            }
         </style>
         
+        
+    <style>
+        body { margin: 0; overflow: hidden; }
+        #ui {
+                direction: rtl;
+              text-align: center;
+            position: absolute;
+            top: 10px; right: 10px;
+            background: rgba(255,255,255,0.9);
+            padding: 10px;
+            border-radius: 10px;
+        }
+        button { margin: 3px; padding: 5px 10px; }
+    </style>
+        
+       
+          <style>
+           .box {
+      width: 300px;
+      height: 100px;
+      color: white;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      font-size: 18px;
+      border-radius: 10px;
+	    background: rgba(255,255,255,0)
+    }
+	 #guia {
+      position: absolute;
+	 top: 75%;
+     gap: 10px; 
+      width: 300px;
+      height: 100px;
       
+      display: flex;
+      justify-content: center;
+      align-items: center;
+    };
+	
+	
+	 #guic {
+    
+    
+    }
+	
+	
+	
+	
+	 /*الانتقال إلى الأمام */
+	#gui1 {
+      position: absolute;
+      top: 5%;
+	  right: 18%;
+       width: 0;
+ height: 0;
+ border-left: 20px solid transparent;
+ border-right: 20px solid transparent;
+ border-bottom: 40px solid rgb(0,128,0) ;
+ 
+    
+    }
+	
+    
+/*الانتقال إلى الخلف */
+#gui2{
+      position: absolute;
+      bottom: 5%;
+	  right: 18%;
+      width: 0;
+ height: 0;
+ border-left: 20px solid transparent;
+ border-right: 20px solid transparent;
+ border-top: 40px solid rgb( 0,128,0) ;
+     
+     
+    }
+/*الانتقال إلى اليمين */
+	#gui3{
+     position: absolute;
+      right: 4%;
+      width: 0;
+ height: 0;
+ border-top: 20px solid transparent;
+ border-bottom: 20px solid transparent;
+ border-left: 40px solid rgb(0,128,0) ;
+    
+     
+    }
+/*الانتقال إلى اليسار */	
+	#gui4{
+     position: absolute;
+      right: 33%;
+	  width: 0;
+ height: 0;
+ border-top: 20px solid transparent;
+ border-bottom: 20px solid transparent;
+ border-right: 40px solid rgb(0,128,0) ;
+ 
+     
+      
+    }
+/*الاستدارة إلى أعلى */		
+	#gui5 {
+       position: absolute;
+      top: 5%;
+	  right: 70%;
+       width: 0;
+ height: 0;
+ border-left: 20px solid transparent;
+ border-right: 20px solid transparent;
+ border-bottom: 40px solid rgb( 0, 0, 255) ;
+     
+     
+    
+    }
+
+/*الاستدارة إلى أسفل*/
+#gui6{
+      position: absolute;
+      bottom: 5%;
+	  right: 70%;
+     width: 0;
+ height: 0;
+ border-left: 20px solid transparent;
+ border-right: 20px solid transparent;
+ border-top: 40px solid rgb(0, 0, 255) ;
+     
+	  
+      
+      
+    }
+	/*الاستدارة إلى اليمين*/
+	#gui7{
+      position: absolute;
+      right: 56%;
+     width: 0;
+ height: 0;
+ border-top: 20px solid transparent;
+ border-bottom: 20px solid transparent;
+ border-left: 40px solid rgb(0, 0, 255) ;
+    
+    }
+	/*الاستدارة إلى اليسار*/
+	#gui8{
+     position: absolute;
+      right: 84%;
+    width: 0;
+ height: 0;
+ border-top: 20px solid transparent;
+ border-bottom: 20px solid transparent;
+ border-right: 40px solid rgb( 0, 0, 255) ;
+     
+    }       
+            </style>
+    
         
 </head>
 <body dir= "rtl">
