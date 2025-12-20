@@ -84,148 +84,127 @@
 			button { margin: 3px; padding: 5px 10px; }
 		</style>
         
-       
-          <style>
-           .box {
-      width: 300px;
-      height: 100px;
-      color: white;
-      display: flex;
-      justify-content: center;
-      align-items: center;
-      font-size: 18px;
-      border-radius: 10px;
-	    background: rgba(255,255,255,0)
-    }
-	 #guia {
-      position: absolute;
-	 top: 75%;
-     gap: 10px; 
-      width: 300px;
-      height: 100px;
-      
-      display: flex;
-      justify-content: center;
-      align-items: center;
-    };
-	
-	
-	 #guic {
-    
-    
-    }
-	
-	
-	
-	
-	 /*الانتقال إلى الأمام */
-	#gui1 {
-      position: absolute;
-      top: 5%;
-	  right: 18%;
-       width: 0;
- height: 0;
- border-left: 20px solid transparent;
- border-right: 20px solid transparent;
- border-bottom: 40px solid rgb(0,128,0) ;
- 
-    
-    }
-	
-    
-/*الانتقال إلى الخلف */
-#gui2{
-      position: absolute;
-      bottom: 5%;
-	  right: 18%;
-      width: 0;
- height: 0;
- border-left: 20px solid transparent;
- border-right: 20px solid transparent;
- border-top: 40px solid rgb( 0,128,0) ;
-     
-     
-    }
-/*الانتقال إلى اليمين */
-	#gui3{
-     position: absolute;
-      right: 4%;
-      width: 0;
- height: 0;
- border-top: 20px solid transparent;
- border-bottom: 20px solid transparent;
- border-left: 40px solid rgb(0,128,0) ;
-    
-     
-    }
-/*الانتقال إلى اليسار */	
-	#gui4{
-     position: absolute;
-      right: 33%;
-	  width: 0;
- height: 0;
- border-top: 20px solid transparent;
- border-bottom: 20px solid transparent;
- border-right: 40px solid rgb(0,128,0) ;
- 
-     
-      
-    }
-/*الاستدارة إلى أعلى */		
-	#gui5 {
-       position: absolute;
-      top: 5%;
-	  right: 70%;
-       width: 0;
- height: 0;
- border-left: 20px solid transparent;
- border-right: 20px solid transparent;
- border-bottom: 40px solid rgb( 0, 0, 255) ;
-     
-     
-    
-    }
+<!--Programming object 7-->  
+	<!--تنسقات التنقل باستخدام الماوس html--> 
+		<style>
+			.box {
+				  width: 300px;
+				  height: 100px;
+				  color: white;
+				  display: flex;
+				  justify-content: center;
+				  align-items: center;
+				  font-size: 18px;
+				  border-radius: 10px;
+				  background: rgba(255,255,255,0)
+				};
+				
+			#guia {
+				 position: absolute;
+				 top: 75%;
+				 gap: 10px; 
+				 width: 300px;
+				 height: 100px;
+				 display: flex;
+				  justify-content: center;
+				  align-items: center;
+				};
+				
+			
+			/*الانتقال إلى الأمام */
+			#gui1 {
+				position: absolute;
+				top: 5%;
+				right: 18%;
+				width: 0;
+				height: 0;
+				border-left: 20px solid transparent;
+				border-right: 20px solid transparent;
+				border-bottom: 40px solid rgb(0,128,0) ;
+			 	};
+				
+				
+			/*الانتقال إلى الخلف */
+			#gui2{
+				position: absolute;
+				bottom: 5%;
+				right: 18%;
+				width: 0;
+				height: 0;
+				border-left: 20px solid transparent;
+				border-right: 20px solid transparent;
+				border-top: 40px solid rgb( 0,128,0) ;
+				};
+				
+			/*الانتقال إلى اليمين */
+			#gui3{
+				position: absolute;
+				right: 4%;
+				width: 0;
+				height: 0;
+				border-top: 20px solid transparent;
+				border-bottom: 20px solid transparent;
+				border-left: 40px solid rgb(0,128,0) ;
+				};
+				
+			/*الانتقال إلى اليسار */	
+			#gui4{
+				position: absolute;
+				right: 33%;
+				width: 0;
+				height: 0;
+				border-top: 20px solid transparent;
+				border-bottom: 20px solid transparent;
+				border-right: 40px solid rgb(0,128,0) ;
+			 	};
+				
+			/*الاستدارة إلى أعلى */		
+			#gui5 {
+				position: absolute;
+				top: 5%;
+				right: 70%;
+				width: 0;
+				height: 0;
+				border-left: 20px solid transparent;
+				border-right: 20px solid transparent;
+				border-bottom: 40px solid rgb( 0, 0, 255) ;
+				};
 
-/*الاستدارة إلى أسفل*/
-#gui6{
-      position: absolute;
-      bottom: 5%;
-	  right: 70%;
-     width: 0;
- height: 0;
- border-left: 20px solid transparent;
- border-right: 20px solid transparent;
- border-top: 40px solid rgb(0, 0, 255) ;
-     
-	  
-      
-      
-    }
-	/*الاستدارة إلى اليمين*/
-	#gui7{
-      position: absolute;
-      right: 56%;
-     width: 0;
- height: 0;
- border-top: 20px solid transparent;
- border-bottom: 20px solid transparent;
- border-left: 40px solid rgb(0, 0, 255) ;
-    
-    }
-	/*الاستدارة إلى اليسار*/
-	#gui8{
-     position: absolute;
-      right: 84%;
-    width: 0;
- height: 0;
- border-top: 20px solid transparent;
- border-bottom: 20px solid transparent;
- border-right: 40px solid rgb( 0, 0, 255) ;
-     
-    }       
-            </style>
-        
-        
+			/*الاستدارة إلى أسفل*/
+			#gui6{
+				position: absolute;
+				bottom: 5%;
+				right: 70%;
+				width: 0;
+				height: 0;
+				border-left: 20px solid transparent;
+				border-right: 20px solid transparent;
+				border-top: 40px solid rgb(0, 0, 255) ;
+				};
+				
+			/*الاستدارة إلى اليمين*/
+			#gui7{
+				position: absolute;
+				right: 56%;
+				width: 0;
+				height: 0;
+				border-top: 20px solid transparent;
+				border-bottom: 20px solid transparent;
+				border-left: 40px solid rgb(0, 0, 255) ;
+				};
+				
+			/*الاستدارة إلى اليسار*/
+			#gui8{
+				position: absolute;
+				right: 84%;
+				width: 0;
+				height: 0;
+				border-top: 20px solid transparent;
+				border-bottom: 20px solid transparent;
+				border-right: 40px solid rgb( 0, 0, 255) ;
+				};       
+        </style>
+	
         
 </head>
 <body dir= "rtl">
@@ -262,23 +241,27 @@
 			<button id="toggleBtn112">اظهار التجربة الثانية</button>
         
 		</div>
-        
+
+
+<!-- Programming object 9 -->
+	<!-- إنشاء أسهم التنقل باستخدام الماوس html -->        
         <div id="guia" >
-		  <div class="box">
-		 <div id="gui1" ></div>
-		  <div id="gui2"></div>
-		  <div id="gui3"></div>
-		  <div id="gui4"></div>
-		</div>
-		<div class="box">
-		 <div id="gui5" ></div>
-		  <div id="gui6"></div>
-		  <div id="gui7"></div>
-		  <div id="gui8"></div>
-		</div>
+			<div class="box">
+				<div id="gui1" ></div>
+				<div id="gui2"></div>
+				<div id="gui3"></div>
+				<div id="gui4"></div>
+			</div>
 		
-		 </div>
-        
+			<div class="box">
+				<div id="gui5" ></div>
+				<div id="gui6"></div>
+				<div id="gui7"></div>
+				<div id="gui8"></div>
+			</div>
+		
+		</div>
+	
         
 <script>
         
