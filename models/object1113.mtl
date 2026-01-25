@@ -1,10 +1,19 @@
 # Blender MTL File: 'object1113.blend'
-# Material Count: 2
+# Material Count: 3
 
 newmtl Material
 Ns 96.078431
 Ka 0.000000 0.000000 0.000000
 Kd 0.466038 0.640000 0.566664
+Ks 0.500000 0.500000 0.500000
+Ni 1.000000
+d 1.000000
+illum 2
+
+newmtl Material.001
+Ns 96.078431
+Ka 0.000000 0.000000 0.000000
+Kd 0.640000 0.012339 0.007514
 Ks 0.500000 0.500000 0.500000
 Ni 1.000000
 d 1.000000
